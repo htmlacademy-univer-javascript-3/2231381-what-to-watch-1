@@ -98,3 +98,5 @@ function AddReview(): JSX.Element {
     </section>
   );
 }
+
+export default AddReview;

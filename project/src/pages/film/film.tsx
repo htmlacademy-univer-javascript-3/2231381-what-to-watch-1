@@ -1,9 +1,9 @@
-import FilmOverview from './film-overview'
+import FilmOverview from './film-overview';
 import FilmReviews from './film-reviews';
 import FilmDetails from './film-details';
 import SmallFilmCard, {SmallFilmCardProps} from '../../components/small-film-card/small-film-card';
 
-enum FilmPageContentType {
+export enum FilmPageContentType {
   Overview,
   Details,
   Reviews
@@ -129,8 +129,8 @@ function Film(props: FilmPageProps): JSX.Element {
 
           <div className="catalog__films-list">
             {
-              moreLikeThisFilms.map((filmCardProps) =>
-                (<SmallFilmCard
+              moreLikeThisFilms.map((filmCardProps) => (
+                <SmallFilmCard key={filmCardProps.filmName}
                   posterImgSrc={filmCardProps.posterImgSrc}
                   filmName={filmCardProps.filmName}
                 />))
@@ -155,3 +155,5 @@ function Film(props: FilmPageProps): JSX.Element {
     </>
   );
 }
+
+export default Film;

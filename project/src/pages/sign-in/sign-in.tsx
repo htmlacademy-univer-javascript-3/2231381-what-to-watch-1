@@ -1,5 +1,4 @@
 function SignIn({children} : {children? : JSX.Element}): JSX.Element{
-
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -60,3 +59,5 @@ function SignIn({children} : {children? : JSX.Element}): JSX.Element{
     </div>
   );
 }
+
+export default SignIn;

@@ -39,3 +39,5 @@ function Player({isPause}: {isPause: boolean}): JSX.Element {
     </div>
   );
 }
+
+export default Player;
