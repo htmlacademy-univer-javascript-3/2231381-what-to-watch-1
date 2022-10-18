@@ -31,8 +31,7 @@ function App(props: MainPageProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film}>
-          <Route index element=
+        <Route path={AppRoute.Film} element=
             {
               <Film backgroundImgSrc={props.promoFilmBackgroundImgSrc}
                     name={props.promoFilmName}
@@ -44,31 +43,6 @@ function App(props: MainPageProps): JSX.Element {
               />
             }
           />
-          <Route path={AppRoute.FilmDetails} element=
-            {
-              <Film backgroundImgSrc={props.promoFilmBackgroundImgSrc}
-                    name={props.promoFilmName}
-                    genre={props.promoFilmGenre}
-                    year={props.promoFilmYear}
-                    posterImgSrc={props.promoFilmPosterImgSrc}
-                    contentType={FilmPageContentType.Details}
-                    isInList={false}
-              />
-            }
-          />
-          <Route path={AppRoute.FilmReviews} element=
-            {
-              <Film backgroundImgSrc={props.promoFilmBackgroundImgSrc}
-                    name={props.promoFilmName}
-                    genre={props.promoFilmGenre}
-                    year={props.promoFilmYear}
-                    posterImgSrc={props.promoFilmPosterImgSrc}
-                    contentType={FilmPageContentType.Reviews}
-                    isInList={false}
-              />
-            }
-          />
-        </Route>
         <Route path={AppRoute.AddReview} element={<AddReview/>}/>
         <Route path={AppRoute.Player} element={<Player isPause/>}/>
         <Route path={AppRoute.Page404} element={<Page404/>}/>
