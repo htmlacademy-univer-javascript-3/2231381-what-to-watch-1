@@ -1,122 +1,57 @@
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
-import {SmallFilmCardProps} from '../../components/small-film-card/small-film-card';
+import {Genre} from '../../types/Genre';
+import {FilmInfo} from '../../types/FilmInfo';
+import Header from '../../components/header/header';
+import {AuthStatus} from '../../types/AuthStatus';
+import Footer from '../../components/footer/footer';
+import FilmCardDesc from '../../components/film-card-desc/film-card-desc';
+import FilmsList from '../../components/films-list/films-list';
+import {Link, useSearchParams} from 'react-router-dom';
+import FilmCardBg from '../../components/film-card-bg/film-card-bg';
 
 export type MainPageProps = {
-  promoFilmName: string;
-  promoFilmGenre: string;
-  promoFilmYear: number;
-  promoFilmPosterImgSrc: string;
-  promoFilmBackgroundImgSrc: string;
+  isAuthorised: AuthStatus;
+  promoFilm: FilmInfo;
+  films: FilmInfo[];
 }
 
 function Main(props: MainPageProps): JSX.Element {
 
-  const genres: string[] = ['All genres', 'Comedies', 'Crime', 'Documentary', 'Dramas', 'Horror', 'Kids & Family', 'Romance', 'Sci-Fi', 'Thrillers'];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedGenre = searchParams.get('genre');
 
-  const films: SmallFilmCardProps[] = [
-    {posterImgSrc: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
-      filmName: 'Fantastic Beasts: The Crimes of Grindelwald'},
-    {posterImgSrc: 'img/bohemian-rhapsody.jpg',
-      filmName: 'Bohemian Rhapsody'},
-    {posterImgSrc:'img/macbeth.jpg',
-      filmName:'Macbeth'},
-    {posterImgSrc:'img/aviator.jpg',
-      filmName:'Aviator'},
-    {posterImgSrc:'img/we-need-to-talk-about-kevin.jpg',
-      filmName:'We need to talk about Kevin'},
-    {posterImgSrc:'img/what-we-do-in-the-shadows.jpg',
-      filmName:'What We Do in the Shadows'},
-    {posterImgSrc:'img/revenant.jpg',
-      filmName:'Revenant'},
-    {posterImgSrc:'img/johnny-english.jpg',
-      filmName:'Johnny English'},
-    {posterImgSrc:'img/shutter-island.jpg',
-      filmName:'Shutter Island'},
-    {posterImgSrc:'img/pulp-fiction.jpg',
-      filmName:'Pulp Fiction'},
-    {posterImgSrc:'img/no-country-for-old-men.jpg',
-      filmName:'No Country for Old Men'},
-    {posterImgSrc:'img/snatch.jpg',
-      filmName:'Snatch'},
-    {posterImgSrc:'img/moonrise-kingdom.jpg',
-      filmName:'Moonrise Kingdom'},
-    {posterImgSrc:'img/seven-years-in-tibet.jpg',
-      filmName:'Seven Years in Tibet'},
-    {posterImgSrc:'img/midnight-special.jpg',
-      filmName:'Midnight Special'},
-    {posterImgSrc:'img/war-of-the-worlds.jpg',
-      filmName:'War of the Worlds'},
-    {posterImgSrc:'img/dardjeeling-limited.jpg',
-      filmName:'Dardjeeling Limited'},
-    {posterImgSrc:'img/orlando.jpg',
-      filmName:'Orlando'},
-    {posterImgSrc:'img/mindhunter.jpg',
-      filmName:'Mindhunter'},
-    {posterImgSrc:'img/midnight-special.jpg',
-      filmName:'Midnight Special'},
-  ];
+  const toSearchFormat = (str: string) => str.replaceAll(' ', '-').replaceAll('&', 'and');
+
+  const filmsToShow = selectedGenre && selectedGenre !== toSearchFormat(Genre.All) ?
+    props.films.filter((film) => toSearchFormat(film.genre) === selectedGenre) :
+    props.films;
+
+  const showGenresNav = () => {
+    const links = [];
+
+    for (const value of Object.values(Genre)){
+      const className = toSearchFormat(value) === selectedGenre ? 'catalog__genres-item--active' : '';
+      links.push(
+        <li className={`catalog__genres-item ${className}`}>
+          <Link className="catalog__genres-link" to={{pathname: '', search: `?genre=${toSearchFormat(value)}`}}>{value}</Link>
+        </li> );
+    }
+
+    return links;
+  };
 
   return(
     <>
       <section className="film-card">
-        <div className="film-card__bg">
-          <img src={props.promoFilmBackgroundImgSrc} alt="The Grand Budapest Hotel"/>
-        </div>
+        <FilmCardBg backgroundImgSrc={props.promoFilm.backgroundImgSrc} filmName={props.promoFilm.name}/>
 
-        <h1 className="visually-hidden">WTW</h1>
-
-        <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
-        </header>
+        <Header isAuthorised={props.isAuthorised} className='film-card__head'/>
 
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={props.promoFilmPosterImgSrc} alt="The Grand Budapest Hotel poster" width="218"
-                height="327"
-              />
+              <img src={props.promoFilm.posterImgSrc} alt={props.promoFilm.name} width="218" height="327"/>
             </div>
-
-            <div className="film-card__desc">
-              <h2 className="film-card__title">{props.promoFilmName}</h2>
-              <p className="film-card__meta">
-                <span className="film-card__genre">{props.promoFilmGenre}</span>
-                <span className="film-card__year">{props.promoFilmYear}</span>
-              </p>
-
-              <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-                  <span>Play</span>
-                </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
-              </div>
-            </div>
+            <FilmCardDesc filmInfo={props.promoFilm} films={props.films}/>
           </div>
         </div>
       </section>
@@ -127,46 +62,18 @@ function Main(props: MainPageProps): JSX.Element {
 
           <ul className="catalog__genres-list">
             {
-              genres.map((genre) => (
-                genre === 'All genres' ?
-                  <li className="catalog__genres-item catalog__genres-item--active">
-                    <a href="#" className="catalog__genres-link">{genre}</a>
-                  </li> :
-                  <li className="catalog__genres-item">
-                    <a href="#" className="catalog__genres-link">{genre}</a>
-                  </li>
-              ))
+              showGenresNav()
             }
           </ul>
 
-          <div className="catalog__films-list">
-            {
-              films.map((filmCardProps) => (
-                <SmallFilmCard key={filmCardProps.filmName}
-                  posterImgSrc={filmCardProps.posterImgSrc}
-                  filmName={filmCardProps.filmName}
-                />))
-            }
-          </div>
+          <FilmsList films={filmsToShow}/>
 
           <div className="catalog__more">
             <button className="catalog__button" type="button">Show more</button>
           </div>
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </>
   );

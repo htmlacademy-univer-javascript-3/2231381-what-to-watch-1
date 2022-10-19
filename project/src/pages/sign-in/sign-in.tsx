@@ -1,22 +1,39 @@
-function SignIn({children} : {children? : JSX.Element}): JSX.Element{
+import {LogInError} from '../../types/LogInError';
+import Header from '../../components/header/header';
+import {AuthStatus} from '../../types/AuthStatus';
+import Footer from '../../components/footer/footer';
+
+function SignIn({errorType} : {errorType? : LogInError}): JSX.Element{
+
+  let errorMessage;
+  switch (errorType) {
+    case LogInError.NotValidEmail:
+      errorMessage = (
+        <div className="sign-in__message">
+          <p>Please enter a valid email address</p>
+        </div>);
+      break;
+    case LogInError.NotValidEmailAndPasswordCombination:
+      errorMessage = (
+        <div className="sign-in__message">
+          <p>We can’t recognize this email <br/> and password combination. Please try again.</p>
+        </div>);
+      break;
+    default:
+      errorMessage = null;
+  }
+
   return (
     <div className="user-page">
-      <header className="page-header user-page__head">
-        <div className="logo">
-          <a href="main.html" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
 
+      <Header isAuthorised={AuthStatus.OnSignInPage} className='user-page__head'>
         <h1 className="page-title user-page__title">Sign in</h1>
-      </header>
+      </Header>
 
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form">
 
-          {children}
+          {errorMessage}
 
           <div className="sign-in__fields">
 
@@ -43,19 +60,7 @@ function SignIn({children} : {children? : JSX.Element}): JSX.Element{
         </form>
       </div>
 
-      <footer className="page-footer">
-        <div className="logo">
-          <a href="main.html" className="logo__link logo__link--light">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </a>
-        </div>
-
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer/>
     </div>
   );
 }
