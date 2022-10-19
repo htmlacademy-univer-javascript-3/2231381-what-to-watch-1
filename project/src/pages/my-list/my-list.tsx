@@ -52,8 +52,8 @@ function MyList(): JSX.Element {
 
         <div className="catalog__films-list">
           {
-            films.map((filmCardProps) =>
-              (<SmallFilmCard
+            films.map((filmCardProps) => (
+              <SmallFilmCard key={filmCardProps.filmName}
                 posterImgSrc={filmCardProps.posterImgSrc}
                 filmName={filmCardProps.filmName}
               />))
@@ -77,3 +77,5 @@ function MyList(): JSX.Element {
     </div>
   );
 }
+
+export default MyList;
