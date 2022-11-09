@@ -1,6 +1,6 @@
-import FilmOverview from './film-overview';
-import FilmReviews from './film-reviews';
-import FilmDetails from './film-details';
+import FilmOverview from '../../components/tab/film-overview';
+import FilmReviews from '../../components/tab/film-reviews';
+import FilmDetails from '../../components/tab/film-details';
 import {FilmInfo} from '../../types/FilmInfo';
 import {Link, useSearchParams, Navigate} from 'react-router-dom';
 import Header from '../../components/header/header';
@@ -11,6 +11,7 @@ import FilmsList from '../../components/films-list/films-list';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import {useFilmId} from '../../hooks/useFilmId';
 import {AppRoute} from '../../const';
+import Tab from "../../components/tab/tab";
 
 export enum FilmPageContentType {
   Overview='Overview',
@@ -26,30 +27,6 @@ type FilmPageProps = {
 function Film(props: FilmPageProps): JSX.Element {
 
   const film = useFilmId(props.films);
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const contentType = searchParams.get('content');
-
-  let content = null;
-  let moreLikeThisFilms: FilmInfo[] = [];
-  if (film){
-    moreLikeThisFilms = props.films.filter((filmInfo) => filmInfo.genre === film.genre);
-
-    switch (contentType) {
-      case FilmPageContentType.Overview:
-        content = <FilmOverview filmInfo={film}/>;
-        break;
-      case FilmPageContentType.Details:
-        content = <FilmDetails filmInfo={film}/>;
-        break;
-      case FilmPageContentType.Reviews:
-        content = <FilmReviews filmInfo={film}/>;
-        break;
-      default:
-        content = <FilmOverview filmInfo={film}/>;
-        break;
-    }
-  }
 
   return ( film ?
     <>
@@ -72,7 +49,7 @@ function Film(props: FilmPageProps): JSX.Element {
               <img src={film.posterImgSrc} alt={film.name} width="218" height="327"/>
             </div>
 
-            {content}
+            <Tab filmInfo={film}/>
 
           </div>
         </div>
@@ -81,7 +58,7 @@ function Film(props: FilmPageProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={moreLikeThisFilms}/>
+          <FilmsList films={props.films.filter((filmInfo) => filmInfo.genre === film.genre)}/>
         </section>
 
         <Footer/>
