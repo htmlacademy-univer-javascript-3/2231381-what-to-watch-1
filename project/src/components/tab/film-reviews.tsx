@@ -1,12 +1,7 @@
-import FilmNav from './film-nav';
 import {FilmInfo} from '../../types/FilmInfo';
-import {FilmPageContentType} from './film';
 
 function FilmReviews({filmInfo}: {filmInfo: FilmInfo}) {
   return (
-    <div className="film-card__desc">
-      <FilmNav activeItem={FilmPageContentType.Reviews} filmId={filmInfo.id}/>
-
       <div className="film-card__reviews film-card__row">
         <div className="film-card__reviews-col">
           {
@@ -26,7 +21,6 @@ function FilmReviews({filmInfo}: {filmInfo: FilmInfo}) {
           }
         </div>
       </div>
-    </div>
   );
 }
 

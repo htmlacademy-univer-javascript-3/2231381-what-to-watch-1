@@ -1,6 +1,4 @@
 import {FilmInfo} from '../../types/FilmInfo';
-import FilmNav from './film-nav';
-import {FilmPageContentType} from './film';
 
 function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
 
@@ -11,9 +9,6 @@ function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
   )).concat(<>{filmInfo.starring[filmInfo.starring.length - 1]}</>);
 
   return (
-    <div className="film-card__desc">
-      <FilmNav activeItem={FilmPageContentType.Details} filmId={filmInfo.id}/>
-
       <div className="film-card__text film-card__row">
         <div className="film-card__text-col">
           <p className="film-card__details-item">
@@ -45,7 +40,6 @@ function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
           </p>
         </div>
       </div>
-    </div>
   );
 }
 
