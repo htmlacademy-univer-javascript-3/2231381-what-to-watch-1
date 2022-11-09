@@ -4,10 +4,7 @@ import {FilmPageContentType} from './film';
 
 function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
 
-  const showStarringActors = () => {
-    const numberOfActorsToShow = Math.min(4, filmInfo.starring.length);
-    return filmInfo.starring.slice(0, numberOfActorsToShow - 1).map((actor) => `${actor}, `).concat(filmInfo.starring[numberOfActorsToShow - 1]);
-  };
+  const showStarringActors = () => {return filmInfo.starring.join(', ');};
 
   return (
     <div className="film-card__desc">

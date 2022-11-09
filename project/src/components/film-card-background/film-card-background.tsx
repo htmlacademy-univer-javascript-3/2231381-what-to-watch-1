@@ -1,9 +1,9 @@
-type FilmCardBgProps = {
+type FilmCardBackgroundProps = {
   backgroundImgSrc: string | undefined;
   filmName: string;
 }
 
-function FilmCardBg(props: FilmCardBgProps) {
+function FilmCardBackground(props: FilmCardBackgroundProps) {
   return (
     <div className="film-card__bg">
       {
@@ -15,4 +15,4 @@ function FilmCardBg(props: FilmCardBgProps) {
   );
 }
 
-export default FilmCardBg;
+export default FilmCardBackground;

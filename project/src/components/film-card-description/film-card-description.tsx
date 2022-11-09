@@ -2,12 +2,12 @@ import {FilmInfo} from '../../types/FilmInfo';
 import {PropsWithChildren, useState} from 'react';
 import {Link} from 'react-router-dom';
 
-type FilmCardDescProps = PropsWithChildren<{
+type FilmCardDescriptionProps = PropsWithChildren<{
   filmInfo: FilmInfo;
   films: FilmInfo[];
 }>
 
-function FilmCardDesc(props: FilmCardDescProps){
+function FilmCardDescription(props: FilmCardDescriptionProps){
 
   const filmsInListCount = props.films.filter((filmInfo) => filmInfo.isInList).length;
 
@@ -55,4 +55,4 @@ function FilmCardDesc(props: FilmCardDescProps){
   );
 }
 
-export default FilmCardDesc;
+export default FilmCardDescription;

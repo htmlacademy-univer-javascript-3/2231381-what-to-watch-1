@@ -11,7 +11,7 @@ function FilmReviews({filmInfo}: {filmInfo: FilmInfo}) {
         <div className="film-card__reviews-col">
           {
             filmInfo.reviews.map((review) => (
-              <div className="review" key={review.dateTimeNumeric}>
+              <div className="review" key={review.id}>
                 <blockquote className="review__quote">
                   <p className="review__text">{review.text}</p>
 

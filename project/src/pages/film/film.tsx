@@ -2,15 +2,15 @@ import FilmOverview from './film-overview';
 import FilmReviews from './film-reviews';
 import FilmDetails from './film-details';
 import {FilmInfo} from '../../types/FilmInfo';
-import {Link, useParams, useSearchParams} from 'react-router-dom';
+import {Link, useSearchParams, Navigate} from 'react-router-dom';
 import Header from '../../components/header/header';
 import {AuthStatus} from '../../types/AuthStatus';
 import Footer from '../../components/footer/footer';
-import FilmCardDesc from '../../components/film-card-desc/film-card-desc';
+import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import FilmsList from '../../components/films-list/films-list';
-import Page404 from '../404/404';
-import FilmCardBg from '../../components/film-card-bg/film-card-bg';
+import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import {useFilmId} from '../../hooks/useFilmId';
+import {AppRoute} from '../../const';
 
 export enum FilmPageContentType {
   Overview='Overview',
@@ -55,14 +55,14 @@ function Film(props: FilmPageProps): JSX.Element {
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <FilmCardBg backgroundImgSrc={film.backgroundImgSrc} filmName={film.name}/>
+          <FilmCardBackground backgroundImgSrc={film.backgroundImgSrc} filmName={film.name}/>
 
           <Header isAuthorised={props.isAuthorised} className='film-card__head'/>
 
           <div className="film-card__wrap">
-            <FilmCardDesc filmInfo={film} films={props.films}>
+            <FilmCardDescription filmInfo={film} films={props.films}>
               <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
-            </FilmCardDesc>
+            </FilmCardDescription>
           </div>
         </div>
 
@@ -86,7 +86,7 @@ function Film(props: FilmPageProps): JSX.Element {
 
         <Footer/>
       </div>
-    </> : <Page404/>
+    </> : <Navigate to={AppRoute.Page404}/>
   );
 }
 

@@ -1,11 +1,11 @@
 import {FilmInfo} from '../../types/FilmInfo';
-import {Link, useParams} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import Header from '../../components/header/header';
 import {AuthStatus} from '../../types/AuthStatus';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
-import Page404 from '../404/404';
-import FilmCardBg from '../../components/film-card-bg/film-card-bg';
+import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import {useFilmId} from '../../hooks/useFilmId';
+import {AppRoute} from '../../const';
 
 type AddReviewProps = {
   films: FilmInfo[];
@@ -19,7 +19,7 @@ function AddReview(props: AddReviewProps): JSX.Element {
   return ( film ?
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <FilmCardBg backgroundImgSrc={film.backgroundImgSrc} filmName={film.name}/>
+        <FilmCardBackground backgroundImgSrc={film.backgroundImgSrc} filmName={film.name}/>
 
         <Header isAuthorised={props.isAuthorised} className=''>
           <nav className="breadcrumbs">
@@ -40,7 +40,7 @@ function AddReview(props: AddReviewProps): JSX.Element {
       </div>
 
       <AddReviewForm/>
-    </section> : <Page404/>
+    </section> : <Navigate to={AppRoute.Page404}/>
   );
 }
 

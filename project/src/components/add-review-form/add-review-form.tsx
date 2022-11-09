@@ -1,4 +1,4 @@
-import {SyntheticEvent, useState} from 'react';
+import React, {SyntheticEvent, useState} from 'react';
 
 function AddReviewForm() {
 
@@ -7,11 +7,15 @@ function AddReviewForm() {
     reviewText: ''
   });
 
-  const fieldChangeHandle = (evt: SyntheticEvent) => {
-    // @ts-ignore
+  const onChangeReview = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
   };
+
+  const onChangeRating = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    const {name, value} = evt.target;
+    setFormData({...formData, [name]: value});
+  }
 
   return(
     <div className="add-review">
@@ -26,7 +30,7 @@ function AddReviewForm() {
                     type="radio"
                     name="rating"
                     value={ratingValue.toString()}
-                    onChange={fieldChangeHandle}
+                    onChange={onChangeRating}
                   />
                   <label className="rating__label" htmlFor={`star-${ratingValue.toString()}`}>{`Rating ${ratingValue.toString()}`}</label>
                 </>))
@@ -39,7 +43,7 @@ function AddReviewForm() {
             name="reviewText"
             id="review-text"
             placeholder="Review text"
-            onChange={fieldChangeHandle}
+            onChange={onChangeReview}
           >
           </textarea>
           <div className="add-review__submit">

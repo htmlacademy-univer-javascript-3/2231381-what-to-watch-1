@@ -3,10 +3,10 @@ import {FilmInfo} from '../../types/FilmInfo';
 import Header from '../../components/header/header';
 import {AuthStatus} from '../../types/AuthStatus';
 import Footer from '../../components/footer/footer';
-import FilmCardDesc from '../../components/film-card-desc/film-card-desc';
+import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import FilmsList from '../../components/films-list/films-list';
 import {Link, useSearchParams} from 'react-router-dom';
-import FilmCardBg from '../../components/film-card-bg/film-card-bg';
+import FilmCardBackground from '../../components/film-card-background/film-card-background';
 
 export type MainPageProps = {
   isAuthorised: AuthStatus;
@@ -42,7 +42,7 @@ function Main(props: MainPageProps): JSX.Element {
   return(
     <>
       <section className="film-card">
-        <FilmCardBg backgroundImgSrc={props.promoFilm.backgroundImgSrc} filmName={props.promoFilm.name}/>
+        <FilmCardBackground backgroundImgSrc={props.promoFilm.backgroundImgSrc} filmName={props.promoFilm.name}/>
 
         <Header isAuthorised={props.isAuthorised} className='film-card__head'/>
 
@@ -51,7 +51,7 @@ function Main(props: MainPageProps): JSX.Element {
             <div className="film-card__poster">
               <img src={props.promoFilm.posterImgSrc} alt={props.promoFilm.name} width="218" height="327"/>
             </div>
-            <FilmCardDesc filmInfo={props.promoFilm} films={props.films}/>
+            <FilmCardDescription filmInfo={props.promoFilm} films={props.films}/>
           </div>
         </div>
       </section>

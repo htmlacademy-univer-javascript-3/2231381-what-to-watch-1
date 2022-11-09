@@ -1,7 +1,7 @@
-import {Link, useParams} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import {FilmInfo} from '../../types/FilmInfo';
 import {useFilmId} from '../../hooks/useFilmId';
-import Page404 from '../404/404';
+import {AppRoute} from '../../const';
 
 type PlayerProps = {
   isPause: boolean;
@@ -49,7 +49,7 @@ function Player(props: PlayerProps): JSX.Element {
           </button>
         </div>
       </div>
-    </div> : <Page404/>
+    </div> : <Navigate to={AppRoute.Page404}/>
   );
 }
 
