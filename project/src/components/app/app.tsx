@@ -1,50 +1,38 @@
-import Main, {MainPageProps} from '../../pages/main/main';
+import Main from '../../pages/main/main';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import SignIn from '../../pages/sign-in/sign-in';
 import MyList from '../../pages/my-list/my-list';
-import Film, {FilmPageContentType} from '../../pages/film/film';
+import Film from '../../pages/film/film';
 import AddReview from '../../pages/add-review/add-review';
 import Player from '../../pages/player/player';
-import Page404 from '../../pages/404/404';
+import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute} from '../../const';
+import {FilmInfo} from '../../types/FilmInfo';
+import {AuthStatus} from '../../types/AuthStatus';
 
-function App(props: MainPageProps): JSX.Element {
+type AppProps = {
+  promoFilm: FilmInfo;
+  films: FilmInfo[];
+  isAuthorised: AuthStatus;
+}
+
+function App({promoFilm, films, isAuthorised} : AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='' element=
-          {
-            <Main promoFilmName={props.promoFilmName}
-              promoFilmGenre={props.promoFilmGenre}
-              promoFilmYear={props.promoFilmYear}
-              promoFilmPosterImgSrc={props.promoFilmPosterImgSrc}
-              promoFilmBackgroundImgSrc={props.promoFilmBackgroundImgSrc}
-            />
-          }
-        />
+        <Route path='' element={<Main promoFilm={promoFilm} films={films} isAuthorised={isAuthorised}/>}/>
         <Route path={AppRoute.Login} element={<SignIn/>}/>
         <Route path={AppRoute.MyList} element=
           {
-            <PrivateRoute isAuthorised={false}>
-              <MyList/>
+            <PrivateRoute isAuthorised={isAuthorised}>
+              <MyList films={films}/>
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element=
-            {
-              <Film backgroundImgSrc={props.promoFilmBackgroundImgSrc}
-                    name={props.promoFilmName}
-                    genre={props.promoFilmGenre}
-                    year={props.promoFilmYear}
-                    posterImgSrc={props.promoFilmPosterImgSrc}
-                    contentType={FilmPageContentType.Overview}
-                    isInList={false}
-              />
-            }
-          />
-        <Route path={AppRoute.AddReview} element={<AddReview/>}/>
-        <Route path={AppRoute.Player} element={<Player isPause/>}/>
+        <Route path={AppRoute.Film} element={<Film films={films} isAuthorised={isAuthorised}/>}/>
+        <Route path={AppRoute.AddReview} element={<AddReview films={films} isAuthorised={isAuthorised}/>}/>
+        <Route path={AppRoute.Player} element={<Player films={films} isPause/>}/>
         <Route path={AppRoute.Page404} element={<Page404/>}/>
       </Routes>
     </BrowserRouter>
