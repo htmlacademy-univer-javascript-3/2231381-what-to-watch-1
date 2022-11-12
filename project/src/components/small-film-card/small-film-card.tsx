@@ -1,7 +1,7 @@
 import {FilmInfo} from '../../types/FilmInfo';
 import {Link} from 'react-router-dom';
-import {RefObject, useEffect, useRef, useState} from "react";
-import VideoPlayer from "../video-player/video-player";
+import {useEffect, useRef, useState} from 'react';
+import VideoPlayer from '../video-player/video-player';
 
 function SmallFilmCard({film}: {film: FilmInfo}):JSX.Element {
 
@@ -12,18 +12,18 @@ function SmallFilmCard({film}: {film: FilmInfo}):JSX.Element {
   const handleMouseOut = () => setIsPlayerOn(false);
 
   useEffect(() => {
-      // @ts-ignore
-      let card : EventTarget = ref.current;
-      if (card) {
-        card.addEventListener("mouseover", handleMouseOver);
-        card.addEventListener("mouseout", handleMouseOut);
+    // @ts-ignore
+    const card : EventTarget = ref.current;
+    if (card) {
+      card.addEventListener('mouseover', handleMouseOver);
+      card.addEventListener('mouseout', handleMouseOut);
 
-        return () => {
-          card.removeEventListener("mouseover", handleMouseOver);
-          card.removeEventListener("mouseout", handleMouseOut);
-        };
-      }
+      return () => {
+        card.removeEventListener('mouseover', handleMouseOver);
+        card.removeEventListener('mouseout', handleMouseOut);
+      };
     }
+  }
   );
 
   return (

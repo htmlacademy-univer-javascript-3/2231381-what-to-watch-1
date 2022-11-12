@@ -1,4 +1,4 @@
-import React, {SyntheticEvent, useState} from 'react';
+import React, {useState} from 'react';
 
 function AddReviewForm() {
 
@@ -15,7 +15,7 @@ function AddReviewForm() {
   const onChangeRating = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
-  }
+  };
 
   return(
     <div className="add-review">

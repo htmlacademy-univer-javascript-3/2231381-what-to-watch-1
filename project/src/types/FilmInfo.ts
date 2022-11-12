@@ -24,7 +24,7 @@ type Rating = {
 }
 
 type Review = {
-  id: number,
+  id: number;
   text: string;
   author: string;
   dateTimeNumeric: string;

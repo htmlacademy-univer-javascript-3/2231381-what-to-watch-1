@@ -5,8 +5,9 @@ import {AuthStatus} from '../../types/AuthStatus';
 import Footer from '../../components/footer/footer';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import FilmsList from '../../components/films-list/films-list';
-import {Link, useSearchParams} from 'react-router-dom';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
+import {getFilmsByGenre, setGenre} from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 
 export type MainPageProps = {
   isAuthorised: AuthStatus;
@@ -16,28 +17,31 @@ export type MainPageProps = {
 
 function Main(props: MainPageProps): JSX.Element {
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const selectedGenre = searchParams.get('genre');
-
-  const toSearchFormat = (str: string) => str.replaceAll(' ', '-').replaceAll('&', 'and');
-
-  const filmsToShow = selectedGenre && selectedGenre !== toSearchFormat(Genre.All) ?
-    props.films.filter((film) => toSearchFormat(film.genre) === selectedGenre) :
-    props.films;
+  const dispatch = useAppDispatch();
+  const genre = useAppSelector((state) => state.genre);
+  const filmsToShow = useAppSelector((state) => state.films);
 
   const showGenresNav = () => {
     const links = [];
 
     for (const value of Object.values(Genre)){
-      const className = toSearchFormat(value) === selectedGenre ? 'catalog__genres-item--active' : '';
+      const className = value === genre ? 'catalog__genres-item--active' : '';
       links.push(
         <li className={`catalog__genres-item ${className}`}>
-          <Link className="catalog__genres-link" to={{pathname: '', search: `?genre=${toSearchFormat(value)}`}}>{value}</Link>
+          <button className="catalog__genres-link"
+            onClick={() => {
+              dispatch(setGenre(value));
+              dispatch(getFilmsByGenre());}}
+            style={{background:'transparent', border:'none'}}
+          >
+            {value}
+          </button>
         </li> );
     }
 
     return links;
   };
+
 
   return(
     <>
