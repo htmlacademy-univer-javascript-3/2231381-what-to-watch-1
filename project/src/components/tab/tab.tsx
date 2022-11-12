@@ -1,8 +1,8 @@
-import {FilmInfo} from "../../types/FilmInfo";
-import FilmOverview from "./film-overview";
-import FilmDetails from "./film-details";
-import FilmReviews from "./film-reviews";
-import {useState} from "react";
+import {FilmInfo} from '../../types/FilmInfo';
+import FilmOverview from './film-overview';
+import FilmDetails from './film-details';
+import FilmReviews from './film-reviews';
+import {useState} from 'react';
 
 type TabProps = {
   filmInfo: FilmInfo;
@@ -22,7 +22,7 @@ function Tab(props: TabProps) {
       default:
         return <FilmOverview filmInfo={props.filmInfo}/>;
     }
-  }
+  };
 
   const renderNavigation = () => {
     const tabs = [];
@@ -32,8 +32,9 @@ function Tab(props: TabProps) {
       tabs.push(
         <li className={`film-nav__item ${className}`}>
           <button className="film-nav__link"
-                  onClick={() => setTab(content)}
-                  style={{background:'transparent', border:'none'}}>
+            onClick={() => setTab(content)}
+            style={{background:'transparent', border:'none'}}
+          >
             {content}
           </button>
         </li> );
@@ -46,16 +47,14 @@ function Tab(props: TabProps) {
         </ul>
       </nav>
     );
-  }
+  };
 
   return (
-    <>
-      <div className="film-card__desc">
-        { renderNavigation() }
-        { renderTab() }
-      </div>
-    </>
-  )
+    <div className="film-card__desc">
+      { renderNavigation() }
+      { renderTab() }
+    </div>
+  );
 }
 
 export default Tab;

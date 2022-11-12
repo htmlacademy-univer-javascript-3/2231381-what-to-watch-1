@@ -1,8 +1,5 @@
-import FilmOverview from '../../components/tab/film-overview';
-import FilmReviews from '../../components/tab/film-reviews';
-import FilmDetails from '../../components/tab/film-details';
 import {FilmInfo} from '../../types/FilmInfo';
-import {Link, useSearchParams, Navigate} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import Header from '../../components/header/header';
 import {AuthStatus} from '../../types/AuthStatus';
 import Footer from '../../components/footer/footer';
@@ -11,7 +8,7 @@ import FilmsList from '../../components/films-list/films-list';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import {useFilmId} from '../../hooks/useFilmId';
 import {AppRoute} from '../../const';
-import Tab from "../../components/tab/tab";
+import Tab from '../../components/tab/tab';
 
 export enum FilmPageContentType {
   Overview='Overview',

@@ -2,7 +2,7 @@ import {FilmInfo} from '../../types/FilmInfo';
 
 function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
 
-  const showStarringActors = () => {return filmInfo.starring.join(', ');};
+  const showStarringActors = () => filmInfo.starring.join(', ');
 
   return (
     <>
