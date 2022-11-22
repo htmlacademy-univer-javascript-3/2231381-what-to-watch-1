@@ -6,8 +6,9 @@ import Footer from '../../components/footer/footer';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import FilmsList from '../../components/films-list/films-list';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
-import {getFilmsByGenre, setGenre} from '../../store/action';
+import {setGenre} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useState} from 'react';
 
 export type MainPageProps = {
   isAuthorised: AuthStatus;
@@ -19,7 +20,7 @@ function Main(props: MainPageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const genre = useAppSelector((state) => state.genre);
-  const filmsToShow = useAppSelector((state) => state.films);
+  const filmsToShow = genre === Genre.All ? props.films : props.films.filter((film) => film.genre === genre);
 
   const showGenresNav = () => {
     const links = [];
@@ -29,9 +30,7 @@ function Main(props: MainPageProps): JSX.Element {
       links.push(
         <li className={`catalog__genres-item ${className}`}>
           <button className="catalog__genres-link"
-            onClick={() => {
-              dispatch(setGenre(value));
-              dispatch(getFilmsByGenre());}}
+            onClick={() => dispatch(setGenre(value))}
             style={{background:'transparent', border:'none'}}
           >
             {value}
@@ -42,6 +41,7 @@ function Main(props: MainPageProps): JSX.Element {
     return links;
   };
 
+  const [numberOfFilmsToShow, setNumberOfFilmsToShow] = useState(8);
 
   return(
     <>
@@ -70,11 +70,15 @@ function Main(props: MainPageProps): JSX.Element {
             }
           </ul>
 
-          <FilmsList films={filmsToShow}/>
+          <FilmsList films={filmsToShow} numberOfFilms={numberOfFilmsToShow}/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {
+            numberOfFilmsToShow < props.films.length &&
+            <div className="catalog__more">
+              <button className="catalog__button" type="button" onClick={() => setNumberOfFilmsToShow(numberOfFilmsToShow + 8)}>Show more</button>
+            </div>
+          }
+
         </section>
 
         <Footer/>

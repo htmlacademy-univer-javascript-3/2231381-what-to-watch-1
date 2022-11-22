@@ -8,7 +8,7 @@ import FilmsList from '../../components/films-list/films-list';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import {useFilmId} from '../../hooks/useFilmId';
 import {AppRoute} from '../../const';
-import Tab from '../../components/tab/tab';
+import Tabs from '../../components/tabs/tabs';
 
 export enum FilmPageContentType {
   Overview='Overview',
@@ -46,7 +46,7 @@ function Film(props: FilmPageProps): JSX.Element {
               <img src={film.posterImgSrc} alt={film.name} width="218" height="327"/>
             </div>
 
-            <Tab filmInfo={film}/>
+            <Tabs filmInfo={film}/>
 
           </div>
         </div>

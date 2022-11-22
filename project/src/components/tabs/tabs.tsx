@@ -8,7 +8,7 @@ type TabProps = {
   filmInfo: FilmInfo;
 }
 
-function Tab(props: TabProps) {
+function Tabs(props: TabProps) {
   const tabContent = ['Overview', 'Details', 'Reviews'];
 
   const [tab, setTab] = useState(tabContent[0]);
@@ -30,7 +30,7 @@ function Tab(props: TabProps) {
     for (const content of tabContent){
       const className = content === tab ? 'film-nav__item--active' : '';
       tabs.push(
-        <li className={`film-nav__item ${className}`}>
+        <li className={`film-nav__item ${className}`} key={content}>
           <button className="film-nav__link"
             onClick={() => setTab(content)}
             style={{background:'transparent', border:'none'}}
@@ -57,4 +57,4 @@ function Tab(props: TabProps) {
   );
 }
 
-export default Tab;
+export default Tabs;
