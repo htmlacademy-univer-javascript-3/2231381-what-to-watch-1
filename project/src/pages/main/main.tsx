@@ -6,7 +6,7 @@ import Footer from '../../components/footer/footer';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import FilmsList from '../../components/films-list/films-list';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
-import {getFilmsByGenre, setGenre} from '../../store/action';
+import {setGenre} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 
 export type MainPageProps = {
@@ -19,7 +19,7 @@ function Main(props: MainPageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
   const genre = useAppSelector((state) => state.genre);
-  const filmsToShow = useAppSelector((state) => state.films);
+  const filmsToShow = genre === Genre.All ? props.films : props.films.filter((film) => film.genre === genre);
 
   const showGenresNav = () => {
     const links = [];
@@ -29,9 +29,7 @@ function Main(props: MainPageProps): JSX.Element {
       links.push(
         <li className={`catalog__genres-item ${className}`}>
           <button className="catalog__genres-link"
-            onClick={() => {
-              dispatch(setGenre(value));
-              dispatch(getFilmsByGenre());}}
+            onClick={() => dispatch(setGenre(value))}
             style={{background:'transparent', border:'none'}}
           >
             {value}
@@ -41,7 +39,6 @@ function Main(props: MainPageProps): JSX.Element {
 
     return links;
   };
-
 
   return(
     <>

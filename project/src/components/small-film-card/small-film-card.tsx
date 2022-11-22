@@ -1,33 +1,24 @@
 import {FilmInfo} from '../../types/FilmInfo';
 import {Link} from 'react-router-dom';
-import {useEffect, useRef, useState} from 'react';
+import {useState} from 'react';
 import VideoPlayer from '../video-player/video-player';
 
 function SmallFilmCard({film}: {film: FilmInfo}):JSX.Element {
 
   const [isPlayerOn, setIsPlayerOn] = useState(false);
-  const ref = useRef(null);
+  const [timer, setTimer] = useState<NodeJS.Timeout | undefined>(undefined);
 
-  const handleMouseOver = () => setTimeout(() => setIsPlayerOn(true), 1000);
-  const handleMouseOut = () => setIsPlayerOn(false);
-
-  useEffect(() => {
-    // @ts-ignore
-    const card : EventTarget = ref.current;
-    if (card) {
-      card.addEventListener('mouseover', handleMouseOver);
-      card.addEventListener('mouseout', handleMouseOut);
-
-      return () => {
-        card.removeEventListener('mouseover', handleMouseOver);
-        card.removeEventListener('mouseout', handleMouseOut);
-      };
-    }
+  function handleMouseOver() {
+    setTimer(setTimeout(() => setIsPlayerOn(true), 1000));
   }
-  );
+
+  function handleMouseOut() {
+    clearTimeout(timer);
+    setIsPlayerOn(false);
+  }
 
   return (
-    <article className="small-film-card catalog__films-card" ref={ref}>
+    <article className="small-film-card catalog__films-card" onPointerEnter={handleMouseOver} onPointerLeave={handleMouseOut}>
       <div className="small-film-card__image">
         {
           isPlayerOn ?

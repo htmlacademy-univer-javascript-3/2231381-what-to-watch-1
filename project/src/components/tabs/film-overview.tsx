@@ -1,9 +1,6 @@
 import {FilmInfo} from '../../types/FilmInfo';
 
 function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
-
-  const showStarringActors = () => filmInfo.starring.join(', ');
-
   return (
     <>
       <div className="film-rating">
@@ -26,7 +23,7 @@ function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
       <div className="film-card__text">
         <p>{filmInfo.description}</p>
         <p className="film-card__director"><strong>Director: {filmInfo.director}</strong></p>
-        <p className="film-card__starring"><strong>Starring: {showStarringActors()} and other</strong></p>
+        <p className="film-card__starring"><strong>Starring: {filmInfo.starring.join(', ')} and other</strong></p>
       </div>
     </>
   );
