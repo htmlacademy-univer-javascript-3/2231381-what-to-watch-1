@@ -8,6 +8,7 @@ import FilmsList from '../../components/films-list/films-list';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import {setGenre} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useState} from 'react';
 
 export type MainPageProps = {
   isAuthorised: AuthStatus;
@@ -40,6 +41,8 @@ function Main(props: MainPageProps): JSX.Element {
     return links;
   };
 
+  const [numberOfFilmsToShow, setNumberOfFilmsToShow] = useState(8);
+
   return(
     <>
       <section className="film-card">
@@ -67,11 +70,15 @@ function Main(props: MainPageProps): JSX.Element {
             }
           </ul>
 
-          <FilmsList films={filmsToShow}/>
+          <FilmsList films={filmsToShow} numberOfFilms={numberOfFilmsToShow}/>
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {
+            numberOfFilmsToShow < props.films.length &&
+            <div className="catalog__more">
+              <button className="catalog__button" type="button" onClick={() => setNumberOfFilmsToShow(numberOfFilmsToShow + 8)}>Show more</button>
+            </div>
+          }
+
         </section>
 
         <Footer/>
