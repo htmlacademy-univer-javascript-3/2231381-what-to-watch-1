@@ -1,20 +1,18 @@
 import {Link, Navigate} from 'react-router-dom';
-import {FilmInfo} from '../../types/FilmInfo';
 import {useFilmId} from '../../hooks/useFilmId';
 import {AppRoute} from '../../const';
 
 type PlayerProps = {
   isPause: boolean;
-  films: FilmInfo[];
 }
 
 function Player(props: PlayerProps): JSX.Element {
 
-  const film = useFilmId(props.films);
+  const film = useFilmId();
 
   return ( film ?
     <div className="player">
-      <video src={film.videoSrc} className="player__video" poster="img/player-poster.jpg"/>
+      <video src={film.videoLink} className="player__video" poster="img/player-poster.jpg"/>
 
       <Link to={`/films/${film.id}`} type="button" className="player__exit">Exit</Link>
 

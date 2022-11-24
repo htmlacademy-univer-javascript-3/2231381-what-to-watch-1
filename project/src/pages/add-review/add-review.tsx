@@ -1,4 +1,3 @@
-import {FilmInfo} from '../../types/FilmInfo';
 import {Link, Navigate} from 'react-router-dom';
 import Header from '../../components/header/header';
 import {AuthStatus} from '../../types/AuthStatus';
@@ -8,18 +7,17 @@ import {useFilmId} from '../../hooks/useFilmId';
 import {AppRoute} from '../../const';
 
 type AddReviewProps = {
-  films: FilmInfo[];
   isAuthorised: AuthStatus;
 }
 
 function AddReview(props: AddReviewProps): JSX.Element {
 
-  const film = useFilmId(props.films);
+  const film = useFilmId();
 
   return ( film ?
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <FilmCardBackground backgroundImgSrc={film.backgroundImgSrc} filmName={film.name}/>
+        <FilmCardBackground backgroundImgSrc={film.backgroundImage} filmName={film.name}/>
 
         <Header isAuthorised={props.isAuthorised} className=''>
           <nav className="breadcrumbs">
@@ -35,7 +33,7 @@ function AddReview(props: AddReviewProps): JSX.Element {
         </Header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src={film.posterImgSrc} alt={film.name} width="218" height="327"/>
+          <img src={film.posterImage} alt={film.name} width="218" height="327"/>
         </div>
       </div>
 

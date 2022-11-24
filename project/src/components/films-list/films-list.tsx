@@ -1,7 +1,7 @@
 import {FilmInfo} from '../../types/FilmInfo';
 import SmallFilmCard from '../small-film-card/small-film-card';
 
-function FilmsList({films, numberOfFilms}: {films: FilmInfo[], numberOfFilms?: number}) {
+function FilmsList({films, numberOfFilms}: {films: FilmInfo[]; numberOfFilms?: number}) {
 
   const renderFilms = () => {
     const filmCards = [];
@@ -12,7 +12,7 @@ function FilmsList({films, numberOfFilms}: {films: FilmInfo[], numberOfFilms?: n
       i++;
     }
     return filmCards;
-  }
+  };
 
   return(
     <div className="catalog__films-list">

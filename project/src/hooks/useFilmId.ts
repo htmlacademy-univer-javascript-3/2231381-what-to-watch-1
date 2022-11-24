@@ -1,8 +1,9 @@
 import {useParams} from 'react-router-dom';
-import {FilmInfo} from '../types/FilmInfo';
+import {useAppSelector} from './index';
 
-export function useFilmId(films: FilmInfo[]) {
+export function useFilmId() {
   const params = useParams();
   const filmId = parseFloat(params.id as string);
+  const {films} = useAppSelector((state) => state);
   return films.find((filmInfo) => filmInfo.id === filmId);
 }

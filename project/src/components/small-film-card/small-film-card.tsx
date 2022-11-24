@@ -22,8 +22,8 @@ function SmallFilmCard({film}: {film: FilmInfo}):JSX.Element {
       <div className="small-film-card__image">
         {
           isPlayerOn ?
-            <VideoPlayer videoSrc={film.videoSrc} posterSrc={film.posterImgSrc}/> :
-            <img src={film.posterImgSrc} alt={film.name} width="280" height="175"/>
+            <VideoPlayer videoSrc={film.previewVideoLink} posterSrc={film.previewImage}/> :
+            <img src={film.previewImage} alt={film.name} width="280" height="175"/>
         }
       </div>
       <h3 className="small-film-card__title">
