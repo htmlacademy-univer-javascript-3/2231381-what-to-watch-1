@@ -8,27 +8,22 @@ import Player from '../../pages/player/player';
 import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute} from '../../const';
-import {AuthStatus} from '../../types/AuthStatus';
 
-type AppProps = {
-  isAuthorised: AuthStatus;
-}
-
-function App({isAuthorised} : AppProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='' element={<Main isAuthorised={isAuthorised}/>}/>
+        <Route path='' element={<Main/>}/>
         <Route path={AppRoute.Login} element={<SignIn/>}/>
         <Route path={AppRoute.MyList} element=
           {
-            <PrivateRoute isAuthorised={isAuthorised}>
+            <PrivateRoute>
               <MyList/>
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<Film isAuthorised={isAuthorised}/>}/>
-        <Route path={AppRoute.AddReview} element={<AddReview isAuthorised={isAuthorised}/>}/>
+        <Route path={AppRoute.Film} element={<Film/>}/>
+        <Route path={AppRoute.AddReview} element={<AddReview/>}/>
         <Route path={AppRoute.Player} element={<Player isPause/>}/>
         <Route path={AppRoute.Page404} element={<Page404/>}/>
       </Routes>

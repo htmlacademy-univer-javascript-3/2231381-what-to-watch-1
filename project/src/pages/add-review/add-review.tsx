@@ -1,16 +1,11 @@
 import {Link, Navigate} from 'react-router-dom';
 import Header from '../../components/header/header';
-import {AuthStatus} from '../../types/AuthStatus';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import {useFilmId} from '../../hooks/useFilmId';
 import {AppRoute} from '../../const';
 
-type AddReviewProps = {
-  isAuthorised: AuthStatus;
-}
-
-function AddReview(props: AddReviewProps): JSX.Element {
+function AddReview(): JSX.Element {
 
   const film = useFilmId();
 
@@ -19,7 +14,7 @@ function AddReview(props: AddReviewProps): JSX.Element {
       <div className="film-card__header">
         <FilmCardBackground backgroundImgSrc={film.backgroundImage} filmName={film.name}/>
 
-        <Header isAuthorised={props.isAuthorised} className=''>
+        <Header className=''>
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">

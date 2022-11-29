@@ -1,4 +1,4 @@
-import {applyMiddleware, configureStore, getDefaultMiddleware} from '@reduxjs/toolkit';
+import {configureStore} from '@reduxjs/toolkit';
 import {reducer} from './reducer';
 import {createAPI} from '../services/api';
 

@@ -1,5 +1,4 @@
 import Header from '../../components/header/header';
-import {AuthStatus} from '../../types/AuthStatus';
 import Footer from '../../components/footer/footer';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import FilmsList from '../../components/films-list/films-list';
@@ -8,13 +7,9 @@ import {setGenre} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useState} from 'react';
 import Spinner from '../../components/spinner/spinner';
-import {fetchPromoFilm} from "../../services/api-action";
+import {fetchPromoFilm} from '../../services/api-action';
 
-export type MainPageProps = {
-  isAuthorised: AuthStatus;
-}
-
-function Main(props: MainPageProps): JSX.Element {
+function Main(): JSX.Element {
 
   const dispatch = useAppDispatch();
   dispatch(fetchPromoFilm());
@@ -49,7 +44,7 @@ function Main(props: MainPageProps): JSX.Element {
         <section className="film-card">
           <FilmCardBackground backgroundImgSrc={promoFilm.backgroundImage} filmName={promoFilm.name}/>
 
-          <Header isAuthorised={props.isAuthorised} className='film-card__head'/>
+          <Header className='film-card__head'/>
 
           <div className="film-card__wrap">
             <div className="film-card__info">
