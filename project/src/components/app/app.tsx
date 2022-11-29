@@ -9,18 +9,12 @@ import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute} from '../../const';
 import {AuthStatus} from '../../types/AuthStatus';
-import {useAppDispatch} from '../../hooks';
-import {fetchFilms, fetchPromoFilm} from '../../services/api-action';
 
 type AppProps = {
   isAuthorised: AuthStatus;
 }
 
 function App({isAuthorised} : AppProps): JSX.Element {
-  const dispatch = useAppDispatch();
-  dispatch(fetchFilms());
-  dispatch(fetchPromoFilm());
-
   return (
     <BrowserRouter>
       <Routes>

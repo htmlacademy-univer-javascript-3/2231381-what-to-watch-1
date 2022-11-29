@@ -4,6 +4,9 @@ import App from './components/app/app';
 import {AuthStatus} from './types/AuthStatus';
 import {Provider} from 'react-redux';
 import {store} from './store';
+import {fetchFilms} from './services/api-action';
+
+store.dispatch(fetchFilms());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

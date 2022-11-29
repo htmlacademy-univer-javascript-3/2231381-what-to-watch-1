@@ -7,7 +7,8 @@ import FilmCardBackground from '../../components/film-card-background/film-card-
 import {setGenre} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useState} from 'react';
-import {fetchPromoFilm} from '../../services/api-action';
+import Spinner from '../../components/spinner/spinner';
+import {fetchPromoFilm} from "../../services/api-action";
 
 export type MainPageProps = {
   isAuthorised: AuthStatus;
@@ -16,7 +17,8 @@ export type MainPageProps = {
 function Main(props: MainPageProps): JSX.Element {
 
   const dispatch = useAppDispatch();
-  const {selectedGenre, films, promoFilm, genres} = useAppSelector((state) => state);
+  dispatch(fetchPromoFilm());
+  const {selectedGenre, films, promoFilm, genres, isLoading} = useAppSelector((state) => state);
   const filmsToShow = selectedGenre === 'All Genres' ? films : films.filter((film) => film.genre === selectedGenre);
 
 
@@ -43,20 +45,21 @@ function Main(props: MainPageProps): JSX.Element {
 
   return(
     <>
-      {promoFilm && <section className="film-card">
-        <FilmCardBackground backgroundImgSrc={promoFilm.backgroundImage} filmName={promoFilm.name}/>
+      {promoFilm &&
+        <section className="film-card">
+          <FilmCardBackground backgroundImgSrc={promoFilm.backgroundImage} filmName={promoFilm.name}/>
 
-        <Header isAuthorised={props.isAuthorised} className='film-card__head'/>
+          <Header isAuthorised={props.isAuthorised} className='film-card__head'/>
 
-        <div className="film-card__wrap">
-          <div className="film-card__info">
-            <div className="film-card__poster">
-              <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327"/>
+          <div className="film-card__wrap">
+            <div className="film-card__info">
+              <div className="film-card__poster">
+                <img src={promoFilm.posterImage} alt={promoFilm.name} width="218" height="327"/>
+              </div>
+              <FilmCardDescription filmInfo={promoFilm}/>
             </div>
-            <FilmCardDescription filmInfo={promoFilm}/>
           </div>
-        </div>
-      </section>}
+        </section>}
 
       <div className="page-content">
         <section className="catalog">
@@ -68,7 +71,9 @@ function Main(props: MainPageProps): JSX.Element {
             }
           </ul>
 
-          <FilmsList films={filmsToShow} numberOfFilms={numberOfFilmsToShow}/>
+          {
+            isLoading ? <Spinner/> : <FilmsList films={filmsToShow} numberOfFilms={numberOfFilmsToShow}/>
+          }
 
           {
             numberOfFilmsToShow < films.length &&

@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {loadFilms, loadPromoFilm, setGenre} from './action';
+import {loadFilms, loadPromoFilm, setGenre, setGenres, setLoadingStatus} from './action';
 import {FilmInfo} from '../types/FilmInfo';
 
 const initialState : {
@@ -7,11 +7,13 @@ const initialState : {
   films: FilmInfo[];
   promoFilm: FilmInfo | null;
   genres: Set<string>;
+  isLoading: boolean;
 } = {
   selectedGenre: 'All Genres',
   films: [],
   promoFilm: null,
   genres: new Set<string>(['All Genres']),
+  isLoading: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -21,6 +23,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadFilms, (state, action) => {
       state.films = action.payload;
+    })
+    .addCase(setGenres, (state) => {
       const genres = new Set<string>(['All Genres']);
       for (const film of state.films){
         genres.add(film.genre);
@@ -29,5 +33,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadPromoFilm, (state, action) => {
       state.promoFilm = action.payload;
+    })
+    .addCase(setLoadingStatus, (state, action) => {
+      state.isLoading = action.payload;
     });
 });
