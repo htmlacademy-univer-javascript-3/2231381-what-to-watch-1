@@ -1,4 +1,3 @@
-import {FilmInfo} from '../../types/FilmInfo';
 import {Link, Navigate} from 'react-router-dom';
 import Header from '../../components/header/header';
 import {AuthStatus} from '../../types/AuthStatus';
@@ -9,6 +8,7 @@ import FilmCardBackground from '../../components/film-card-background/film-card-
 import {useFilmId} from '../../hooks/useFilmId';
 import {AppRoute} from '../../const';
 import Tabs from '../../components/tabs/tabs';
+import {useAppSelector} from '../../hooks';
 
 export enum FilmPageContentType {
   Overview='Overview',
@@ -18,23 +18,23 @@ export enum FilmPageContentType {
 
 type FilmPageProps = {
   isAuthorised: AuthStatus;
-  films: FilmInfo[];
 }
 
 function Film(props: FilmPageProps): JSX.Element {
 
-  const film = useFilmId(props.films);
+  const film = useFilmId();
+  const {films} = useAppSelector((state) => state);
 
   return ( film ?
     <>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
-          <FilmCardBackground backgroundImgSrc={film.backgroundImgSrc} filmName={film.name}/>
+          <FilmCardBackground backgroundImgSrc={film.backgroundImage} filmName={film.name}/>
 
           <Header isAuthorised={props.isAuthorised} className='film-card__head'/>
 
           <div className="film-card__wrap">
-            <FilmCardDescription filmInfo={film} films={props.films}>
+            <FilmCardDescription filmInfo={film}>
               <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>
             </FilmCardDescription>
           </div>
@@ -43,7 +43,7 @@ function Film(props: FilmPageProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.posterImgSrc} alt={film.name} width="218" height="327"/>
+              <img src={film.posterImage} alt={film.name} width="218" height="327"/>
             </div>
 
             <Tabs filmInfo={film}/>
@@ -55,7 +55,7 @@ function Film(props: FilmPageProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={props.films.filter((filmInfo) => filmInfo.genre === film.genre)}/>
+          <FilmsList films={films.filter((filmInfo) => filmInfo.genre === film.genre)}/>
         </section>
 
         <Footer/>

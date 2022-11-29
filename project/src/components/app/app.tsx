@@ -8,31 +8,28 @@ import Player from '../../pages/player/player';
 import Page404 from '../../pages/page-404/page-404';
 import PrivateRoute from '../private-route/private-route';
 import {AppRoute} from '../../const';
-import {FilmInfo} from '../../types/FilmInfo';
 import {AuthStatus} from '../../types/AuthStatus';
 
 type AppProps = {
-  promoFilm: FilmInfo;
-  films: FilmInfo[];
   isAuthorised: AuthStatus;
 }
 
-function App({promoFilm, films, isAuthorised} : AppProps): JSX.Element {
+function App({isAuthorised} : AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='' element={<Main promoFilm={promoFilm} films={films} isAuthorised={isAuthorised}/>}/>
+        <Route path='' element={<Main isAuthorised={isAuthorised}/>}/>
         <Route path={AppRoute.Login} element={<SignIn/>}/>
         <Route path={AppRoute.MyList} element=
           {
             <PrivateRoute isAuthorised={isAuthorised}>
-              <MyList films={films}/>
+              <MyList/>
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Film} element={<Film films={films} isAuthorised={isAuthorised}/>}/>
-        <Route path={AppRoute.AddReview} element={<AddReview films={films} isAuthorised={isAuthorised}/>}/>
-        <Route path={AppRoute.Player} element={<Player films={films} isPause/>}/>
+        <Route path={AppRoute.Film} element={<Film isAuthorised={isAuthorised}/>}/>
+        <Route path={AppRoute.AddReview} element={<AddReview isAuthorised={isAuthorised}/>}/>
+        <Route path={AppRoute.Player} element={<Player isPause/>}/>
         <Route path={AppRoute.Page404} element={<Page404/>}/>
       </Routes>
     </BrowserRouter>

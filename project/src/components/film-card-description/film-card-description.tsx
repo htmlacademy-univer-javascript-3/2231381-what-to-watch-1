@@ -1,17 +1,18 @@
 import {FilmInfo} from '../../types/FilmInfo';
 import {PropsWithChildren, useState} from 'react';
 import {Link} from 'react-router-dom';
+import {useAppSelector} from '../../hooks';
 
 type FilmCardDescriptionProps = PropsWithChildren<{
   filmInfo: FilmInfo;
-  films: FilmInfo[];
 }>
 
 function FilmCardDescription(props: FilmCardDescriptionProps){
 
-  const filmsInListCount = props.films.filter((filmInfo) => filmInfo.isInList).length;
+  const {films} = useAppSelector((state) => state);
+  const filmsInListCount = films.filter((filmInfo) => filmInfo.isFavorite).length;
 
-  const [isInList, setIsInList] = useState(props.filmInfo.isInList);
+  const [isInList, setIsInList] = useState(props.filmInfo.isFavorite);
   const [count, setCount] = useState(filmsInListCount);
 
   const addOrRemoveFilmToList = () => {
@@ -24,7 +25,7 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
       <h2 className="film-card__title">{props.filmInfo.name}</h2>
       <p className="film-card__meta">
         <span className="film-card__genre">{props.filmInfo.genre}</span>
-        <span className="film-card__year">{props.filmInfo.year}</span>
+        <span className="film-card__year">{props.filmInfo.released}</span>
       </p>
 
       <div className="film-card__buttons">

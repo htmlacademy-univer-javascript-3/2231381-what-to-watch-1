@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import {films} from './mocks/films';
 import {AuthStatus} from './types/AuthStatus';
 import {Provider} from 'react-redux';
 import {store} from './store';
+import {fetchFilms} from './services/api-action';
+
+store.dispatch(fetchFilms());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -13,7 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App promoFilm={films[0]} films={films} isAuthorised={AuthStatus.Authorized}/>
+      <App isAuthorised={AuthStatus.Authorized}/>
     </Provider>
   </React.StrictMode>,
 );

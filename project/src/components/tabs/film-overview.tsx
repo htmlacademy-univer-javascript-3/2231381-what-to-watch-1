@@ -1,16 +1,31 @@
 import {FilmInfo} from '../../types/FilmInfo';
 
 function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
+
+  const getScore = () => {
+    if (0 <= filmInfo.rating && filmInfo.rating < 3){
+      return 'Bad';
+    } else if (3 <= filmInfo.rating && filmInfo.rating < 5){
+      return 'Normal';
+    } else if (5 <= filmInfo.rating && filmInfo.rating < 8){
+      return 'Good';
+    } else if (8 <= filmInfo.rating && filmInfo.rating < 10){
+      return 'Very good';
+    } else {
+      return 'Awecome';
+    }
+  };
+
   return (
     <>
       <div className="film-rating">
         {
           filmInfo.rating ?
             <>
-              <div className="film-rating__score">{filmInfo.rating.score}</div>
+              <div className="film-rating__score">{filmInfo.rating}</div>
               <p className="film-rating__meta">
-                <span className="film-rating__level">{filmInfo.rating.level}</span>
-                <span className="film-rating__count">{`${filmInfo.rating.count} ${filmInfo.rating.count === 1 ? 'rating' : 'ratings'}`}</span>
+                <span className="film-rating__level">{getScore()}</span>
+                <span className="film-rating__count">{`${filmInfo.scoresCount} ${filmInfo.scoresCount === 1 ? 'rating' : 'ratings'}`}</span>
               </p>
             </> :
             <p className="film-rating__meta">
