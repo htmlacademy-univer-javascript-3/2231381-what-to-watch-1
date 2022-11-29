@@ -1,6 +1,5 @@
 import {Link, Navigate} from 'react-router-dom';
 import Header from '../../components/header/header';
-import {AuthStatus} from '../../types/AuthStatus';
 import Footer from '../../components/footer/footer';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import FilmsList from '../../components/films-list/films-list';
@@ -16,11 +15,7 @@ export enum FilmPageContentType {
   Reviews='Reviews'
 }
 
-type FilmPageProps = {
-  isAuthorised: AuthStatus;
-}
-
-function Film(props: FilmPageProps): JSX.Element {
+function Film(): JSX.Element {
 
   const film = useFilmId();
   const {films} = useAppSelector((state) => state);
@@ -31,7 +26,7 @@ function Film(props: FilmPageProps): JSX.Element {
         <div className="film-card__hero">
           <FilmCardBackground backgroundImgSrc={film.backgroundImage} filmName={film.name}/>
 
-          <Header isAuthorised={props.isAuthorised} className='film-card__head'/>
+          <Header className='film-card__head'/>
 
           <div className="film-card__wrap">
             <FilmCardDescription filmInfo={film}>

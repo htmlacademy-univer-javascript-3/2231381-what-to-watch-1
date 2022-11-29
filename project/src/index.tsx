@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import {AuthStatus} from './types/AuthStatus';
 import {Provider} from 'react-redux';
 import {store} from './store';
-import {fetchFilms} from './services/api-action';
+import {fetchFilms, getLogin} from './services/api-action';
 
 store.dispatch(fetchFilms());
+store.dispatch(getLogin());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -15,7 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App isAuthorised={AuthStatus.Authorized}/>
+      <App/>
     </Provider>
   </React.StrictMode>,
 );

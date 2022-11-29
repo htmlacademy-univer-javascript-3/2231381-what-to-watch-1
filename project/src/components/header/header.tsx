@@ -3,19 +3,20 @@ import {PropsWithChildren} from 'react';
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import {useAppSelector} from '../../hooks';
 
 type HeaderProps = PropsWithChildren<{
-  isAuthorised: AuthStatus;
   className: string;
 }>
 
-function UserBlock({isAuthorised} : {isAuthorised: AuthStatus}){
+function UserBlock(){
+  const {authorizationStatus, user} = useAppSelector((state) => state);
 
   const authorisedUserBlock = (
     <>
       <li className="user-block__item">
         <div className="user-block__avatar">
-          <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+          <img src={user?.avatarUrl || ''} alt="User avatar" width="63" height="63"/>
         </div>
       </li>
       <li className="user-block__item">
@@ -26,7 +27,7 @@ function UserBlock({isAuthorised} : {isAuthorised: AuthStatus}){
   const notAuthorisedUserBlock = <Link to={AppRoute.Login} className="user-block__link">Sign in</Link>;
 
   let userBlock;
-  switch (isAuthorised) {
+  switch (authorizationStatus) {
     case AuthStatus.Authorized:
       userBlock = authorisedUserBlock;
       break;
@@ -51,7 +52,7 @@ function Header(props: HeaderProps) {
 
         {props.children}
 
-        <UserBlock isAuthorised={props.isAuthorised}/>
+        <UserBlock/>
       </header>
     </>
   );
