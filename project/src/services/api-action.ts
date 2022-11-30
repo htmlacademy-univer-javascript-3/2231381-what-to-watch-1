@@ -8,7 +8,7 @@ import {
   setFilms,
   setGenres,
   setLoadingStatus,
-  setLoginError,
+  setLoginError, setPostReviewError,
   setPromoFilm,
   setReviews,
   setSimilarFilms,
@@ -110,9 +110,7 @@ export const getFilm = createAsyncThunk<void, string | undefined, {
   async (filmId, {dispatch, extra: api}) => {
     try {
       dispatch(setFilm(null));
-
       const {data} = await api.get<FilmInfo>(`/films/${filmId}`);
-
       dispatch(setFilm(data));
     } catch {
       dispatch(redirectToRoute(AppRoute.Page404));
@@ -151,8 +149,13 @@ export const postReview = createAsyncThunk<void, {filmId: number; comment: strin
 }>(
   'film/postReview',
   async ({filmId, comment, rating}, {dispatch, extra: api}) => {
-    const {data} = await api.post<Review[]>(`/comments/${filmId}`, {comment, rating});
-    dispatch(setReviews(data));
-    dispatch(redirectToRoute(`/films/${filmId}`));
+    try {
+      dispatch(setPostReviewError(null));
+      const {data} = await api.post<Review[]>(`/comments/${filmId}`, {comment, rating});
+      dispatch(setReviews(data));
+      dispatch(redirectToRoute(`/films/${filmId}`));
+    } catch {
+      dispatch(setPostReviewError('Что-то пошло не так'));
+    }
   }
 );

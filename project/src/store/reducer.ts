@@ -10,7 +10,7 @@ import {
   setReviews,
   setSelectedGenre,
   setSimilarFilms,
-  setUser
+  setUser, setPostReviewError
 } from './action';
 import {FilmInfo} from '../types/FilmInfo';
 import {User} from '../types/User';
@@ -36,6 +36,7 @@ type FilmPageInfo = {
   film: FilmInfo | null;
   similarFilms: FilmInfo[];
   reviews: Review[];
+  postReviewError: string | null;
 }
 
 const initialState : AuthState & MainPageInfo & FilmPageInfo = {
@@ -52,6 +53,7 @@ const initialState : AuthState & MainPageInfo & FilmPageInfo = {
   film: null,
   similarFilms: [],
   reviews: [],
+  postReviewError: null,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -97,5 +99,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setReviews, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(setPostReviewError, (state, action) => {
+      state.postReviewError = action.payload;
     });
 });

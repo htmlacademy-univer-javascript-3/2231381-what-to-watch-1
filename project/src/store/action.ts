@@ -29,5 +29,7 @@ export const setSimilarFilms = createAction('film/setSimilarFilms', (films: Film
 
 export const setReviews = createAction('film/setReviews', (reviews: Review[]) => ({payload: reviews}));
 
+export const setPostReviewError = createAction('film/setPostReviewError', (error: string | null) => ({payload: error}));
+
 
 export const redirectToRoute = createAction<string>('redirectToRoute');

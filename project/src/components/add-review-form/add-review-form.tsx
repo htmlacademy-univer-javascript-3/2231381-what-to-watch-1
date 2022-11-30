@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {postReview} from '../../services/api-action';
+import {setPostReviewError} from '../../store/action';
 
 function AddReviewForm({filmId}: {filmId: number}) {
+
+  const {postReviewError} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({
     rating: 0,
@@ -12,14 +16,15 @@ function AddReviewForm({filmId}: {filmId: number}) {
   const onChangeReview = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
+    dispatch(setPostReviewError(null));
   };
 
   const onChangeRating = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
+    dispatch(setPostReviewError(null));
   };
 
-  const dispatch = useAppDispatch();
   const onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(postReview({filmId: filmId, comment: formData.reviewText, rating: formData.rating}));
@@ -28,6 +33,7 @@ function AddReviewForm({filmId}: {filmId: number}) {
   return(
     <div className="add-review">
       <form className="add-review__form" onSubmit={onSubmit}>
+        {postReviewError && <p style={{textAlign: 'center', color: 'darkred'}}>{postReviewError}</p>}
         <div className="rating">
           <div className="rating__stars">
             {
