@@ -18,7 +18,7 @@ function Tabs(props: TabProps) {
       case 'Details':
         return <FilmDetails filmInfo={props.filmInfo}/>;
       case 'Reviews':
-        return <FilmReviews />;
+        return <FilmReviews/>;
       default:
         return <FilmOverview filmInfo={props.filmInfo}/>;
     }

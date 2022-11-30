@@ -2,12 +2,12 @@ import {Link, Navigate} from 'react-router-dom';
 import Header from '../../components/header/header';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
-import {useFilmId} from '../../hooks/useFilmId';
 import {AppRoute} from '../../const';
+import {useAppSelector} from '../../hooks';
 
 function AddReview(): JSX.Element {
 
-  const film = useFilmId();
+  const {film} = useAppSelector((state) => state);
 
   return ( film ?
     <section className="film-card film-card--full">
@@ -32,7 +32,7 @@ function AddReview(): JSX.Element {
         </div>
       </div>
 
-      <AddReviewForm/>
+      <AddReviewForm filmId={film.id}/>
     </section> : <Navigate to={AppRoute.Page404}/>
   );
 }

@@ -1,8 +1,8 @@
-import {Review} from '../../types/Review';
+import { useAppSelector} from '../../hooks';
 
 function FilmReviews() {
 
-  const reviews : Review[] = [];
+  const {reviews} = useAppSelector((state) => state);
 
   return (
     <div className="film-card__reviews film-card__row">

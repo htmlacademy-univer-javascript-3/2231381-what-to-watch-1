@@ -3,9 +3,11 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import React, {useRef} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {postLogin} from '../../services/api-action';
+import {login} from '../../services/api-action';
 import {Navigate} from 'react-router-dom';
 import {AuthStatus} from '../../types/AuthStatus';
+import {setLoginError} from '../../store/action';
+
 function SignIn(): JSX.Element{
 
   const {loginError, authorizationStatus} = useAppSelector((state) => state);
@@ -35,15 +37,21 @@ function SignIn(): JSX.Element{
       errorMessage = null;
   }
 
-  const inputRef = useRef(null);
+  const formRef = useRef(null);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (inputRef.current){
-      const formData = new FormData(inputRef.current);
+    if (formRef.current){
+      const formData = new FormData(formRef.current);
       const email = formData.get('user-email');
       const password = formData.get('user-password');
-      dispatch(postLogin({email: email?.toString() || '', password: password?.toString() || ''}));
+      if (email === null || email === '') {
+        dispatch(setLoginError(LogInError.NotValidEmail));
+      } else if (password === null || password === '') {
+        dispatch(setLoginError(LogInError.NotValidPassword));
+      } else {
+        dispatch(login({email: email?.toString() || '', password: password?.toString() || ''}));
+      }
     }
   };
 
@@ -57,7 +65,7 @@ function SignIn(): JSX.Element{
         </Header>
 
         <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form" ref={inputRef} onSubmit={handleSubmit}>
+          <form action="#" className="sign-in__form" ref={formRef} onSubmit={handleSubmit}>
 
             {errorMessage}
 

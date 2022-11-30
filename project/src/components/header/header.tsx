@@ -1,9 +1,10 @@
-import {AuthStatus} from '../../types/AuthStatus';
 import {PropsWithChildren} from 'react';
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {AuthStatus} from '../../types/AuthStatus';
+import {logout} from '../../services/api-action';
 
 type HeaderProps = PropsWithChildren<{
   className: string;
@@ -11,6 +12,7 @@ type HeaderProps = PropsWithChildren<{
 
 function UserBlock(){
   const {authorizationStatus, user} = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
 
   const authorisedUserBlock = (
     <>
@@ -20,7 +22,12 @@ function UserBlock(){
         </div>
       </li>
       <li className="user-block__item">
-        <Link to={AppRoute.Login} className="user-block__link">Sign out</Link>
+        <button onClick={() => {dispatch(logout());}}
+          className="user-block__link"
+          style={{background:'transparent', border:'none'}}
+        >
+          Sign out
+        </button>
       </li>
     </>);
 
@@ -34,7 +41,7 @@ function UserBlock(){
     case AuthStatus.NotAuthorized:
       userBlock = notAuthorisedUserBlock;
       break;
-    case AuthStatus.OnSignInPage:
+    case AuthStatus.Unknown:
       userBlock = null;
       break;
   }
