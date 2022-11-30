@@ -23,8 +23,9 @@ function UserBlock(){
       </li>
       <li className="user-block__item">
         <button onClick={() => {dispatch(logout());}}
-                className="user-block__link"
-                style={{background:'transparent', border:'none'}}>
+          className="user-block__link"
+          style={{background:'transparent', border:'none'}}
+        >
           Sign out
         </button>
       </li>

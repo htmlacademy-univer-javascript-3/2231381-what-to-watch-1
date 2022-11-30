@@ -1,6 +1,6 @@
 import {Link, Navigate} from 'react-router-dom';
-import {useFilmId} from '../../hooks/useFilmId';
 import {AppRoute} from '../../const';
+import {useAppSelector} from '../../hooks';
 
 type PlayerProps = {
   isPause: boolean;
@@ -8,7 +8,7 @@ type PlayerProps = {
 
 function Player(props: PlayerProps): JSX.Element {
 
-  const film = useFilmId();
+  const {film} = useAppSelector((state) => state);
 
   return ( film ?
     <div className="player">

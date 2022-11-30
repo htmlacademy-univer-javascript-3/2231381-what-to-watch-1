@@ -8,7 +8,7 @@ import Tabs from '../../components/tabs/tabs';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
 import {getFilm, getReviews, getSimilarFilms} from '../../services/api-action';
-import {AuthStatus} from "../../types/AuthStatus";
+import {AuthStatus} from '../../types/AuthStatus';
 
 export enum FilmPageContentType {
   Overview='Overview',
@@ -56,8 +56,7 @@ function Film(): JSX.Element {
 
             </div>
           </div>
-        </section>
-      }
+        </section>}
 
 
       <div className="page-content">

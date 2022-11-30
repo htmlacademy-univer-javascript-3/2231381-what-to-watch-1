@@ -109,9 +109,11 @@ export const getFilm = createAsyncThunk<void, string | undefined, {
   'film/getFilm',
   async (filmId, {dispatch, extra: api}) => {
     try {
-      dispatch(setFilm(null));
-      const {data} = await api.get<FilmInfo>(`/films/${filmId}`);
-      dispatch(setFilm(data));
+      if (filmId !== undefined) {
+        dispatch(setFilm(null));
+        const {data} = await api.get<FilmInfo>(`/films/${filmId}`);
+        dispatch(setFilm(data));
+      }
     } catch {
       dispatch(redirectToRoute(AppRoute.Page404));
     }
@@ -125,8 +127,10 @@ export const getSimilarFilms = createAsyncThunk<void, string | undefined, {
 }>(
   'film/getSimilarFilms',
   async (filmId, {dispatch, extra: api}) => {
-    const {data} = await api.get<FilmInfo[]>(`/films/${filmId}/similar`);
-    dispatch(setSimilarFilms(data));
+    if (filmId !== undefined) {
+      const {data} = await api.get<FilmInfo[]>(`/films/${filmId}/similar`);
+      dispatch(setSimilarFilms(data));
+    }
   },
 );
 
@@ -137,8 +141,10 @@ export const getReviews = createAsyncThunk<void, string | undefined, {
 }>(
   'film/getReviews',
   async (filmId, {dispatch, extra: api}) => {
-    const {data} = await api.get<Review[]>(`/comments/${filmId}`);
-    dispatch(setReviews(data));
+    if (filmId !== undefined) {
+      const {data} = await api.get<Review[]>(`/comments/${filmId}`);
+      dispatch(setReviews(data));
+    }
   },
 );
 
