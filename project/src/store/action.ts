@@ -1,21 +1,33 @@
 import {createAction} from '@reduxjs/toolkit';
 import {FilmInfo} from '../types/FilmInfo';
-import {AuthStatus} from '../types/AuthStatus';
 import {User} from '../types/User';
 import {LogInError} from '../types/LogInError';
+import {Review} from '../types/Review';
+import {AuthStatus} from '../types/AuthStatus';
 
-export const setGenre = createAction('setGenre', (genre: string) => ({payload: genre}));
+export const setAuthStatus = createAction('user/setAuthStatus', (authStatus: AuthStatus) => ({payload: authStatus}));
 
-export const loadFilms = createAction('loadFilms', (films: FilmInfo[]) => ({payload: films}));
+export const setUser = createAction('user/setUser', (user: User) => ({payload: user}));
 
-export const setGenres = createAction('setGenres');
+export const setLoginError = createAction('user/setLoginError', (error: LogInError) => ({payload: error}));
 
-export const loadPromoFilm = createAction('loadPromoFilm', (film: FilmInfo) => ({payload: film}));
 
-export const setLoadingStatus = createAction('startLoading', (isLoading: boolean) => ({payload: isLoading}));
+export const setFilms = createAction('main/setFilms', (films: FilmInfo[]) => ({payload: films}));
 
-export const setAuthStatus = createAction('setAuthStatus', (authStatus: AuthStatus) => ({payload: authStatus}));
+export const setPromoFilm = createAction('main/setPromoFilm', (film: FilmInfo) => ({payload: film}));
 
-export const setUser = createAction('setUser', (user: User) => ({payload: user}));
+export const setGenres = createAction('main/setGenres');
 
-export const setLoginError = createAction('setLoginError', (error: LogInError) => ({payload: error}));
+export const setSelectedGenre = createAction('main/setSelectedGenre', (genre: string) => ({payload: genre}));
+
+export const setLoadingStatus = createAction('main/setLoadingStatus', (isLoading: boolean) => ({payload: isLoading}));
+
+
+export const setFilm = createAction('film/setFilm', (film: FilmInfo | null) => ({payload: film}));
+
+export const setSimilarFilms = createAction('film/setSimilarFilms', (films: FilmInfo[]) => ({payload: films}));
+
+export const setReviews = createAction('film/setReviews', (reviews: Review[]) => ({payload: reviews}));
+
+
+export const redirectToRoute = createAction<string>('redirectToRoute');

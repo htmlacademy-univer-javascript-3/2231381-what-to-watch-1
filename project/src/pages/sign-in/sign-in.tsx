@@ -3,9 +3,10 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import React, {useRef} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {postLogin} from '../../services/api-action';
+import {login} from '../../services/api-action';
 import {Navigate} from 'react-router-dom';
 import {AuthStatus} from '../../types/AuthStatus';
+
 function SignIn(): JSX.Element{
 
   const {loginError, authorizationStatus} = useAppSelector((state) => state);
@@ -43,7 +44,7 @@ function SignIn(): JSX.Element{
       const formData = new FormData(inputRef.current);
       const email = formData.get('user-email');
       const password = formData.get('user-password');
-      dispatch(postLogin({email: email?.toString() || '', password: password?.toString() || ''}));
+      dispatch(login({email: email?.toString() || '', password: password?.toString() || ''}));
     }
   };
 

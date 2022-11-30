@@ -3,16 +3,16 @@ import Footer from '../../components/footer/footer';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import FilmsList from '../../components/films-list/films-list';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
-import {setGenre} from '../../store/action';
+import {setSelectedGenre} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Spinner from '../../components/spinner/spinner';
-import {fetchPromoFilm} from '../../services/api-action';
+import {getPromoFilm} from '../../services/api-action';
 
 function Main(): JSX.Element {
 
   const dispatch = useAppDispatch();
-  dispatch(fetchPromoFilm());
+  useEffect(() => {dispatch(getPromoFilm());}, []);
   const {selectedGenre, films, promoFilm, genres, isLoading} = useAppSelector((state) => state);
   const filmsToShow = selectedGenre === 'All Genres' ? films : films.filter((film) => film.genre === selectedGenre);
 
@@ -25,7 +25,7 @@ function Main(): JSX.Element {
       links.push(
         <li className={`catalog__genres-item ${className}`}>
           <button className="catalog__genres-link"
-            onClick={() => dispatch(setGenre(value))}
+            onClick={() => dispatch(setSelectedGenre(value))}
             style={{background:'transparent', border:'none'}}
           >
             {value}
@@ -40,7 +40,8 @@ function Main(): JSX.Element {
 
   return(
     <>
-      {promoFilm &&
+      {
+        promoFilm &&
         <section className="film-card">
           <FilmCardBackground backgroundImgSrc={promoFilm.backgroundImage} filmName={promoFilm.name}/>
 
@@ -54,26 +55,28 @@ function Main(): JSX.Element {
               <FilmCardDescription filmInfo={promoFilm}/>
             </div>
           </div>
-        </section>}
+        </section>
+      }
 
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <ul className="catalog__genres-list">
-            {
-              showGenresNav()
-            }
+            { showGenresNav() }
           </ul>
 
-          {
-            isLoading ? <Spinner/> : <FilmsList films={filmsToShow} numberOfFilms={numberOfFilmsToShow}/>
-          }
+          { isLoading ? <Spinner/> : <FilmsList films={filmsToShow} numberOfFilms={numberOfFilmsToShow}/> }
 
           {
             numberOfFilmsToShow < films.length &&
             <div className="catalog__more">
-              <button className="catalog__button" type="button" onClick={() => setNumberOfFilmsToShow(numberOfFilmsToShow + 8)}>Show more</button>
+              <button className="catalog__button"
+                type="button"
+                onClick={() => setNumberOfFilmsToShow(numberOfFilmsToShow + 8)}
+              >
+                Show more
+              </button>
             </div>
           }
 

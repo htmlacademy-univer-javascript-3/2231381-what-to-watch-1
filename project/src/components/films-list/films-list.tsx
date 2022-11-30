@@ -16,9 +16,7 @@ function FilmsList({films, numberOfFilms}: {films: FilmInfo[]; numberOfFilms?: n
 
   return(
     <div className="catalog__films-list">
-      {
-        renderFilms()
-      }
+      { renderFilms() }
     </div>
   );
 }

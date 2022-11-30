@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
+import {useAppDispatch} from '../../hooks';
+import {postReview} from '../../services/api-action';
 
-function AddReviewForm() {
+function AddReviewForm({filmId}: {filmId: number}) {
 
   const [formData, setFormData] = useState({
     rating: 0,
@@ -17,9 +19,15 @@ function AddReviewForm() {
     setFormData({...formData, [name]: value});
   };
 
+  const dispatch = useAppDispatch();
+  const onSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    dispatch(postReview({filmId: filmId, comment: formData.reviewText, rating: formData.rating}));
+  };
+
   return(
     <div className="add-review">
-      <form action="#" className="add-review__form">
+      <form className="add-review__form" onSubmit={onSubmit}>
         <div className="rating">
           <div className="rating__stars">
             {

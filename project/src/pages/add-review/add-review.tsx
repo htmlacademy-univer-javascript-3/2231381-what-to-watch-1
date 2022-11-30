@@ -32,7 +32,7 @@ function AddReview(): JSX.Element {
         </div>
       </div>
 
-      <AddReviewForm/>
+      <AddReviewForm filmId={film.id}/>
     </section> : <Navigate to={AppRoute.Page404}/>
   );
 }
