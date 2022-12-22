@@ -1,5 +1,5 @@
 import {FilmInfo} from '../../types/FilmInfo';
-import {PropsWithChildren, useState} from 'react';
+import React, {PropsWithChildren, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppSelector} from '../../hooks';
 
@@ -56,4 +56,4 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
   );
 }
 
-export default FilmCardDescription;
+export default React.memo(FilmCardDescription);

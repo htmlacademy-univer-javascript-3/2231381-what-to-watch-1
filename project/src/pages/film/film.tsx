@@ -62,7 +62,7 @@ function Film(): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={similarFilms}/>
+          <FilmsList films={similarFilms} genre={film?.genre || 'All Genres'}/>
         </section>
 
         <Footer/>

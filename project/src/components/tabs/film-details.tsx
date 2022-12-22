@@ -1,12 +1,14 @@
 import {FilmInfo} from '../../types/FilmInfo';
+import React, {useMemo} from "react";
 
 function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
 
-  const showStarringActors = () => filmInfo.starring.slice(0, filmInfo.starring.length - 2).map((actor) => (
+  const renderStarringActors = (starring: string[]) => starring.slice(0, starring.length - 2).map((actor) => (
     <>
       {actor}, <br/>
     </>
-  )).concat(<>{filmInfo.starring[filmInfo.starring.length - 1]}</>);
+  )).concat(<>{starring[starring.length - 1]}</>);
+  const starringActors = useMemo(() => renderStarringActors(filmInfo.starring), [filmInfo]);
 
   return (
     <div className="film-card__text film-card__row">
@@ -18,9 +20,7 @@ function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {
-              showStarringActors()
-            }
+            {starringActors}
           </span>
         </p>
       </div>
@@ -43,4 +43,4 @@ function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
   );
 }
 
-export default FilmDetails;
+export default React.memo(FilmDetails);

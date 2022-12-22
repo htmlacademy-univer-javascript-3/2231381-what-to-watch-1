@@ -1,4 +1,4 @@
-import {PropsWithChildren} from 'react';
+import {PropsWithChildren, useMemo} from 'react';
 import Logo from '../logo/logo';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
@@ -14,37 +14,32 @@ function UserBlock(){
   const {authorizationStatus, user} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  const authorisedUserBlock = (
-    <>
-      <li className="user-block__item">
-        <div className="user-block__avatar">
-          <img src={user?.avatarUrl || ''} alt="User avatar" width="63" height="63"/>
-        </div>
-      </li>
-      <li className="user-block__item">
-        <button onClick={() => {dispatch(logout());}}
-          className="user-block__link"
-          style={{background:'transparent', border:'none'}}
-        >
-          Sign out
-        </button>
-      </li>
-    </>);
-
-  const notAuthorisedUserBlock = <Link to={AppRoute.Login} className="user-block__link">Sign in</Link>;
-
-  let userBlock;
-  switch (authorizationStatus) {
-    case AuthStatus.Authorized:
-      userBlock = authorisedUserBlock;
-      break;
-    case AuthStatus.NotAuthorized:
-      userBlock = notAuthorisedUserBlock;
-      break;
-    case AuthStatus.Unknown:
-      userBlock = null;
-      break;
+  function getUserBlock(authStatus: AuthStatus) {
+    switch (authStatus) {
+      case AuthStatus.Authorized:
+        return <>
+          <li className="user-block__item">
+            <div className="user-block__avatar">
+              <img src={user?.avatarUrl || ''} alt="User avatar" width="63" height="63"/>
+            </div>
+          </li>
+          <li className="user-block__item">
+            <button onClick={() => {dispatch(logout());}}
+                    className="user-block__link"
+                    style={{background:'transparent', border:'none'}}
+            >
+              Sign out
+            </button>
+          </li>
+        </>;
+      case AuthStatus.NotAuthorized:
+        return <Link to={AppRoute.Login} className="user-block__link">Sign in</Link>;
+      case AuthStatus.Unknown:
+        return null;
+    }
   }
+
+  const userBlock = useMemo(() => getUserBlock(authorizationStatus), [authorizationStatus]);
 
   return (<ul className='user-block'>{userBlock}</ul>);
 }

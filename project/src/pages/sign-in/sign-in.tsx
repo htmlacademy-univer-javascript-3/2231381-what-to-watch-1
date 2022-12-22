@@ -1,7 +1,7 @@
 import {LogInError} from '../../types/LogInError';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-import React, {useRef} from 'react';
+import React, {useMemo, useRef} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {login} from '../../services/api-action';
 import {Navigate} from 'react-router-dom';
@@ -13,29 +13,25 @@ function SignIn(): JSX.Element{
   const {loginError, authorizationStatus} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
-  let errorMessage;
-  switch (loginError) {
-    case LogInError.NotValidEmail:
-      errorMessage = (
-        <div className="sign-in__message">
-          <p>Please enter a valid email address</p>
-        </div>);
-      break;
-    case LogInError.NotValidPassword:
-      errorMessage = (
-        <div className="sign-in__message">
-          <p>Please enter a valid password</p>
-        </div>);
-      break;
-    case LogInError.NotValidEmailAndPasswordCombination:
-      errorMessage = (
-        <div className="sign-in__message">
-          <p>We can’t recognize this email <br/> and password combination. Please try again.</p>
-        </div>);
-      break;
-    default:
-      errorMessage = null;
+  const renderErrorMessage = (loginError: LogInError) => {
+    switch (loginError) {
+      case LogInError.NotValidEmail:
+       return <div className="sign-in__message">
+                <p>Please enter a valid email address</p>
+              </div>;
+      case LogInError.NotValidPassword:
+        return <div className="sign-in__message">
+                <p>Please enter a valid password</p>
+              </div>;
+      case LogInError.NotValidEmailAndPasswordCombination:
+        return <div className="sign-in__message">
+                <p>We can’t recognize this email <br/> and password combination. Please try again.</p>
+              </div>;
+      default:
+        return null;
+    }
   }
+  const errorMessage = useMemo(() => renderErrorMessage(loginError), [loginError]);
 
   const formRef = useRef(null);
 

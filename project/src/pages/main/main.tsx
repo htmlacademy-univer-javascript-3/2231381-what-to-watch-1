@@ -5,7 +5,7 @@ import FilmsList from '../../components/films-list/films-list';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import {setSelectedGenre} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import Spinner from '../../components/spinner/spinner';
 import {getPromoFilm} from '../../services/api-action';
 
@@ -14,13 +14,11 @@ function Main(): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {dispatch(getPromoFilm());}, []);
   const {selectedGenre, films, promoFilm, genres, isLoading} = useAppSelector((state) => state);
-  const filmsToShow = selectedGenre === 'All Genres' ? films : films.filter((film) => film.genre === selectedGenre);
 
-
-  const showGenresNav = () => {
+  const renderGenresNavigation = (genres: string[]) => {
     const links = [];
 
-    for (const value of Array.from(genres)){
+    for (const value of (genres)){
       const className = value === selectedGenre ? 'catalog__genres-item--active' : '';
       links.push(
         <li className={`catalog__genres-item ${className}`}>
@@ -35,8 +33,7 @@ function Main(): JSX.Element {
 
     return links;
   };
-
-  const [numberOfFilmsToShow, setNumberOfFilmsToShow] = useState(8);
+  const genresNavigation = useMemo(() => renderGenresNavigation(genres), [genres]);
 
   return(
     <>
@@ -63,22 +60,10 @@ function Main(): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <ul className="catalog__genres-list">
-            { showGenresNav() }
+            { genresNavigation }
           </ul>
 
-          { isLoading ? <Spinner/> : <FilmsList films={filmsToShow} numberOfFilms={numberOfFilmsToShow}/> }
-
-          {
-            numberOfFilmsToShow < films.length &&
-            <div className="catalog__more">
-              <button className="catalog__button"
-                type="button"
-                onClick={() => setNumberOfFilmsToShow(numberOfFilmsToShow + 8)}
-              >
-                Show more
-              </button>
-            </div>
-          }
+          { isLoading ? <Spinner/> : <FilmsList films={films} genre={selectedGenre}/> }
 
         </section>
 
