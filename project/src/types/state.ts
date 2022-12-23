@@ -30,3 +30,12 @@ export type MainData = {
   selectedGenre: string;
   isLoading: boolean;
 }
+
+export type MyListData = {
+  myList: FilmInfo[];
+  myListLength: number;
+  changedFilm: {
+    filmId: number,
+    status: boolean,
+  } | null;
+}

@@ -22,7 +22,6 @@ export const getAuthStatus = createAsyncThunk<User, undefined, {
   },
 );
 
-
 export const login = createAsyncThunk<User, UserAuthData, {
   dispatch: AppDispatch;
   state: State;
@@ -49,6 +48,7 @@ export const logout = createAsyncThunk<void, undefined, {
 );
 
 
+
 export const fetchFilms = createAsyncThunk<FilmInfo[], undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -73,6 +73,31 @@ export const fetchPromoFilm = createAsyncThunk<FilmInfo, undefined, {
     return data;
   },
 );
+
+export const fetchMyList = createAsyncThunk<FilmInfo[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'myList/fetchMyList',
+  async (_args, {extra: api}) => {
+    const {data} = await api.get<FilmInfo[]>('/favorite');
+    return data;
+  }
+)
+
+export const changeFilmStatus = createAsyncThunk<FilmInfo, {filmId: number; status: number;}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'myList/postReview',
+  async ({filmId, status}, {extra: api}) => {
+    const {data} = await api.post<FilmInfo>(`/favorite/${filmId}/${status}`, {filmId, status});
+    return data;
+  }
+);
+
 
 
 export const fetchFilm = createAsyncThunk<FilmInfo, string, {

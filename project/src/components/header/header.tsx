@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AuthStatus} from '../../types/AuthStatus';
 import {logout} from '../../store/api-action';
 import {getAuthStatus, getUser} from '../../store/auth-process/selectors';
+import {redirectToRoute} from "../../store/action";
 
 type HeaderProps = PropsWithChildren<{
   className: string;
@@ -22,7 +23,7 @@ function UserBlock(){
         return (
           <>
             <li className="user-block__item">
-              <div className="user-block__avatar">
+              <div className="user-block__avatar" onClick={() => {dispatch(redirectToRoute(AppRoute.MyList))}}>
                 <img src={user?.avatarUrl || ''} alt="User avatar" width="63" height="63"/>
               </div>
             </li>
