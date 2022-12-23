@@ -4,10 +4,11 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
 import {AppRoute} from '../../const';
 import {useAppSelector} from '../../hooks';
+import {getFilm} from '../../store/film-data/selectors';
 
 function AddReview(): JSX.Element {
 
-  const {film} = useAppSelector((state) => state);
+  const film = useAppSelector(getFilm);
 
   return ( film ?
     <section className="film-card film-card--full">

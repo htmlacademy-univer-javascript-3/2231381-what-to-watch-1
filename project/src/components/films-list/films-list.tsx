@@ -1,23 +1,43 @@
 import {FilmInfo} from '../../types/FilmInfo';
 import SmallFilmCard from '../small-film-card/small-film-card';
+import React, {useMemo, useState} from 'react';
 
-function FilmsList({films, numberOfFilms}: {films: FilmInfo[]; numberOfFilms?: number}) {
+function FilmsList({films, genre}: {films: FilmInfo[]; genre: string}) {
 
-  const renderFilms = () => {
+  const filmsToShow = genre === 'All Genres' ? films : films.filter((film) => film.genre === genre);
+  const initialNumberOfFilms = filmsToShow.length > 8 ? 8 : filmsToShow.length;
+  const [numberOfFilmsToShow, setNumberOfFilmsToShow] = useState(initialNumberOfFilms);
+
+  const renderFilms = (filmsToRender: FilmInfo[], numberOfFilms: number) => {
     const filmCards = [];
     let i = 0;
-    numberOfFilms = numberOfFilms || films.length;
-    while (i < films.length && i < numberOfFilms){
-      filmCards.push(<SmallFilmCard key={films[i].id} film={films[i]}/>);
+
+    while (i < filmsToRender.length && i < numberOfFilms){
+      filmCards.push(<SmallFilmCard key={filmsToRender[i].id} film={filmsToRender[i]}/>);
       i++;
     }
+
     return filmCards;
   };
+  const filmsList = useMemo(() => renderFilms(filmsToShow, numberOfFilmsToShow), [filmsToShow, numberOfFilmsToShow]);
 
   return(
-    <div className="catalog__films-list">
-      { renderFilms() }
-    </div>
+    <>
+      <div className="catalog__films-list">
+        { filmsList }
+      </div>
+      {
+        numberOfFilmsToShow < filmsToShow.length &&
+        <div className="catalog__more">
+          <button className="catalog__button"
+            type="button"
+            onClick={() => setNumberOfFilmsToShow(numberOfFilmsToShow + 8)}
+          >
+            Show more
+          </button>
+        </div>
+      }
+    </>
   );
 }
 

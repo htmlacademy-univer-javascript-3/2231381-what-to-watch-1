@@ -7,8 +7,10 @@ import FilmCardBackground from '../../components/film-card-background/film-card-
 import Tabs from '../../components/tabs/tabs';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
-import {getFilm, getReviews, getSimilarFilms} from '../../services/api-action';
+import {fetchFilm, fetchReviews, fetchSimilarFilms} from '../../store/api-action';
 import {AuthStatus} from '../../types/AuthStatus';
+import {getFilm, getSimilarFilms} from '../../store/film-data/selectors';
+import {getAuthStatus} from '../../store/auth-process/selectors';
 
 export enum FilmPageContentType {
   Overview='Overview',
@@ -21,14 +23,18 @@ function Film(): JSX.Element {
   const params = useParams();
   const filmId = params.id;
 
-  const {film, similarFilms, authorizationStatus} = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthStatus);
+  const film = useAppSelector(getFilm);
+  const similarFilms = useAppSelector(getSimilarFilms);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getFilm(filmId));
-    dispatch(getSimilarFilms(filmId));
-    dispatch(getReviews(filmId));
-  }, []);
+    if (filmId !== undefined) {
+      dispatch(fetchFilm(filmId));
+      dispatch(fetchSimilarFilms(filmId));
+      dispatch(fetchReviews(filmId));
+    }
+  }, [dispatch, filmId]);
 
   return (
     <>
@@ -62,7 +68,7 @@ function Film(): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={similarFilms}/>
+          <FilmsList films={similarFilms} genre={film?.genre || 'All Genres'}/>
         </section>
 
         <Footer/>

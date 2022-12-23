@@ -3,24 +3,27 @@ import Footer from '../../components/footer/footer';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import FilmsList from '../../components/films-list/films-list';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
-import {setSelectedGenre} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import Spinner from '../../components/spinner/spinner';
-import {getPromoFilm} from '../../services/api-action';
+import {fetchPromoFilm} from '../../store/api-action';
+import {getFilms, getGenres, getIsLoading, getPromoFilm, getSelectedGenre} from '../../store/main-data/selectors';
+import {setSelectedGenre} from '../../store/main-data/main-data';
 
 function Main(): JSX.Element {
 
   const dispatch = useAppDispatch();
-  useEffect(() => {dispatch(getPromoFilm());}, []);
-  const {selectedGenre, films, promoFilm, genres, isLoading} = useAppSelector((state) => state);
-  const filmsToShow = selectedGenre === 'All Genres' ? films : films.filter((film) => film.genre === selectedGenre);
+  useEffect(() => {dispatch(fetchPromoFilm());}, [dispatch]);
+  const isLoading = useAppSelector(getIsLoading);
+  const selectedGenre = useAppSelector(getSelectedGenre);
+  const films = useAppSelector(getFilms);
+  const promoFilm = useAppSelector(getPromoFilm);
+  const genres = useAppSelector(getGenres);
 
-
-  const showGenresNav = () => {
+  const renderGenresNavigation = () => {
     const links = [];
 
-    for (const value of Array.from(genres)){
+    for (const value of (genres)){
       const className = value === selectedGenre ? 'catalog__genres-item--active' : '';
       links.push(
         <li className={`catalog__genres-item ${className}`}>
@@ -35,8 +38,6 @@ function Main(): JSX.Element {
 
     return links;
   };
-
-  const [numberOfFilmsToShow, setNumberOfFilmsToShow] = useState(8);
 
   return(
     <>
@@ -63,22 +64,10 @@ function Main(): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <ul className="catalog__genres-list">
-            { showGenresNav() }
+            { renderGenresNavigation() }
           </ul>
 
-          { isLoading ? <Spinner/> : <FilmsList films={filmsToShow} numberOfFilms={numberOfFilmsToShow}/> }
-
-          {
-            numberOfFilmsToShow < films.length &&
-            <div className="catalog__more">
-              <button className="catalog__button"
-                type="button"
-                onClick={() => setNumberOfFilmsToShow(numberOfFilmsToShow + 8)}
-              >
-                Show more
-              </button>
-            </div>
-          }
+          { isLoading ? <Spinner/> : <FilmsList films={films} genre={selectedGenre}/> }
 
         </section>
 

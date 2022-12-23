@@ -1,7 +1,8 @@
 import {FilmInfo} from '../../types/FilmInfo';
-import {PropsWithChildren, useState} from 'react';
+import React, {PropsWithChildren, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useAppSelector} from '../../hooks';
+import {getFilms} from '../../store/main-data/selectors';
 
 type FilmCardDescriptionProps = PropsWithChildren<{
   filmInfo: FilmInfo;
@@ -9,7 +10,7 @@ type FilmCardDescriptionProps = PropsWithChildren<{
 
 function FilmCardDescription(props: FilmCardDescriptionProps){
 
-  const {films} = useAppSelector((state) => state);
+  const films = useAppSelector(getFilms);
   const filmsInListCount = films.filter((filmInfo) => filmInfo.isFavorite).length;
 
   const [isInList, setIsInList] = useState(props.filmInfo.isFavorite);
@@ -56,4 +57,4 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
   );
 }
 
-export default FilmCardDescription;
+export default React.memo(FilmCardDescription);

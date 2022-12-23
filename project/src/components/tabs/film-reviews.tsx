@@ -1,8 +1,10 @@
 import { useAppSelector} from '../../hooks';
+import {getReviews} from '../../store/film-data/selectors';
+import {Review} from '../../types/Review';
 
 function FilmReviews() {
 
-  const {reviews} = useAppSelector((state) => state);
+  const reviews = useAppSelector<Review[]>(getReviews);
 
   return (
     <div className="film-card__reviews film-card__row">

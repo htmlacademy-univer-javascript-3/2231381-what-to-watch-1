@@ -1,20 +1,23 @@
 import {FilmInfo} from '../../types/FilmInfo';
+import React, {useMemo} from 'react';
 
 function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
 
-  const getScore = () => {
-    if (0 <= filmInfo.rating && filmInfo.rating < 3){
+  const getScore = (rating: number) => {
+    if (0 <= rating && rating < 3){
       return 'Bad';
-    } else if (3 <= filmInfo.rating && filmInfo.rating < 5){
+    } else if (3 <= rating && rating < 5){
       return 'Normal';
-    } else if (5 <= filmInfo.rating && filmInfo.rating < 8){
+    } else if (5 <= rating && rating < 8){
       return 'Good';
-    } else if (8 <= filmInfo.rating && filmInfo.rating < 10){
+    } else if (8 <= rating && rating < 10){
       return 'Very good';
     } else {
       return 'Awecome';
     }
   };
+
+  const score = useMemo(() => getScore(filmInfo.rating), [filmInfo.rating]);
 
   return (
     <>
@@ -24,7 +27,7 @@ function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
             <>
               <div className="film-rating__score">{filmInfo.rating}</div>
               <p className="film-rating__meta">
-                <span className="film-rating__level">{getScore()}</span>
+                <span className="film-rating__level">{score}</span>
                 <span className="film-rating__count">{`${filmInfo.scoresCount} ${filmInfo.scoresCount === 1 ? 'rating' : 'ratings'}`}</span>
               </p>
             </> :
@@ -44,4 +47,4 @@ function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
   );
 }
 
-export default FilmOverview;
+export default React.memo(FilmOverview);
