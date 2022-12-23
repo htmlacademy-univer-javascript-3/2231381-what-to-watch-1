@@ -3,19 +3,24 @@ import Footer from '../../components/footer/footer';
 import FilmCardDescription from '../../components/film-card-description/film-card-description';
 import FilmsList from '../../components/films-list/films-list';
 import FilmCardBackground from '../../components/film-card-background/film-card-background';
-import {setSelectedGenre} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect} from 'react';
 import Spinner from '../../components/spinner/spinner';
-import {getPromoFilm} from '../../services/api-action';
+import {fetchPromoFilm} from '../../store/api-action';
+import {getFilms, getGenres, getIsLoading, getPromoFilm, getSelectedGenre} from '../../store/main-data/selectors';
+import {setSelectedGenre} from '../../store/main-data/main-data';
 
 function Main(): JSX.Element {
 
   const dispatch = useAppDispatch();
-  useEffect(() => {dispatch(getPromoFilm());}, []);
-  const {selectedGenre, films, promoFilm, genres, isLoading} = useAppSelector((state) => state);
+  useEffect(() => {dispatch(fetchPromoFilm());}, [dispatch]);
+  const isLoading = useAppSelector(getIsLoading);
+  const selectedGenre = useAppSelector(getSelectedGenre);
+  const films = useAppSelector(getFilms);
+  const promoFilm = useAppSelector(getPromoFilm);
+  const genres = useAppSelector(getGenres);
 
-  const renderGenresNavigation = (genres: string[]) => {
+  const renderGenresNavigation = () => {
     const links = [];
 
     for (const value of (genres)){
@@ -33,7 +38,6 @@ function Main(): JSX.Element {
 
     return links;
   };
-  const genresNavigation = useMemo(() => renderGenresNavigation(genres), [genres]);
 
   return(
     <>
@@ -60,7 +64,7 @@ function Main(): JSX.Element {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <ul className="catalog__genres-list">
-            { genresNavigation }
+            { renderGenresNavigation() }
           </ul>
 
           { isLoading ? <Spinner/> : <FilmsList films={films} genre={selectedGenre}/> }

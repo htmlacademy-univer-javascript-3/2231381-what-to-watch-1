@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {postReview} from '../../services/api-action';
-import {setPostReviewError} from '../../store/action';
+import {postReview} from '../../store/api-action';
+import {getPostReviewError} from '../../store/film-data/selectors';
+import {setPostReviewError} from '../../store/film-data/film-data';
 
 function AddReviewForm({filmId}: {filmId: number}) {
 
-  const {postReviewError} = useAppSelector((state) => state);
+  const postReviewError = useAppSelector(getPostReviewError);
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({

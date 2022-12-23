@@ -1,13 +1,13 @@
 import {FilmInfo} from '../../types/FilmInfo';
-import React, {useMemo} from "react";
+import React, {useMemo} from 'react';
 
 function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
 
   const renderStarringActors = (starring: string[]) => starring.slice(0, starring.length - 2).map((actor) => (
-    <>
-      {actor}, <br/>
-    </>
-  )).concat(<>{starring[starring.length - 1]}</>);
+    <p key={actor}>
+      {actor},
+    </p>
+  )).concat(<p>{starring[starring.length - 1]}</p>);
   const starringActors = useMemo(() => renderStarringActors(filmInfo.starring), [filmInfo]);
 
   return (

@@ -9,19 +9,19 @@ type TabProps = {
 }
 
 function Tabs(props: TabProps) {
-  const tabName = ['Overview', 'Details', 'Reviews'];
-  const [tab, setTab] = useState(tabName[0]);
+  const tabsNames = ['Overview', 'Details', 'Reviews'];
+  const [tab, setTab] = useState(tabsNames[0]);
 
-  const renderNavigation = (tabContent: string[]) => {
+  const renderNavigation = () => {
     const tabs = [];
 
-    for (const content of tabContent){
+    for (const content of tabsNames){
       const className = content === tab ? 'film-nav__item--active' : '';
       tabs.push(
         <li className={`film-nav__item ${className}`} key={content}>
           <button className="film-nav__link"
-                  onClick={() => setTab(content)}
-                  style={{background:'transparent', border:'none'}}
+            onClick={() => setTab(content)}
+            style={{background:'transparent', border:'none'}}
           >
             {content}
           </button>
@@ -36,7 +36,6 @@ function Tabs(props: TabProps) {
       </nav>
     );
   };
-  const navigation = useMemo(() => renderNavigation(tabName), [tabName]);
 
   const renderTab = (name: string) => {
     switch (name) {
@@ -52,7 +51,7 @@ function Tabs(props: TabProps) {
 
   return (
     <div className="film-card__desc">
-      { navigation }
+      { renderNavigation() }
       { tabContent }
     </div>
   );

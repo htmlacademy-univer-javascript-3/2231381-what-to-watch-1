@@ -1,5 +1,5 @@
 import {FilmInfo} from '../../types/FilmInfo';
-import React, {useMemo} from "react";
+import React, {useMemo} from 'react';
 
 function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
 
