@@ -35,7 +35,7 @@ export type MyListData = {
   myList: FilmInfo[];
   myListLength: number;
   changedFilm: {
-    filmId: number,
-    status: boolean,
+    filmId: number;
+    status: boolean;
   } | null;
 }

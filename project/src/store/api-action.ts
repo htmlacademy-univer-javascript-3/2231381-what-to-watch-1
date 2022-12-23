@@ -48,7 +48,6 @@ export const logout = createAsyncThunk<void, undefined, {
 );
 
 
-
 export const fetchFilms = createAsyncThunk<FilmInfo[], undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -84,9 +83,9 @@ export const fetchMyList = createAsyncThunk<FilmInfo[], undefined, {
     const {data} = await api.get<FilmInfo[]>('/favorite');
     return data;
   }
-)
+);
 
-export const changeFilmStatus = createAsyncThunk<FilmInfo, {filmId: number; status: number;}, {
+export const changeFilmStatus = createAsyncThunk<FilmInfo, {filmId: number; status: number}, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -97,7 +96,6 @@ export const changeFilmStatus = createAsyncThunk<FilmInfo, {filmId: number; stat
     return data;
   }
 );
-
 
 
 export const fetchFilm = createAsyncThunk<FilmInfo, string, {

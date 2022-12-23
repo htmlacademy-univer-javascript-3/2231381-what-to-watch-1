@@ -1,9 +1,9 @@
 import {FilmInfo} from '../../types/FilmInfo';
 import React, {PropsWithChildren, useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {getChangedFilm, getMyListLength} from "../../store/my-list-data/selectors";
-import {changeFilmStatus, fetchMyList} from "../../store/api-action";
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getChangedFilm, getMyListLength} from '../../store/my-list-data/selectors';
+import {changeFilmStatus, fetchMyList} from '../../store/api-action';
 
 type FilmCardDescriptionProps = PropsWithChildren<{
   filmInfo: FilmInfo;
@@ -19,14 +19,14 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
 
   const changeStatus = () => {
     dispatch(changeFilmStatus({filmId: props.filmInfo.id, status: +(!isInList)}));
-  }
+  };
 
   useEffect(() => {
     if (changedFilm && changedFilm.filmId === props.filmInfo.id){
-        dispatch(fetchMyList());
-        setIsInList(changedFilm.status);
-      }
-  }, [changedFilm])
+      dispatch(fetchMyList());
+      setIsInList(changedFilm.status);
+    }
+  }, [changedFilm, dispatch, props.filmInfo.id]);
 
   return(
     <div className="film-card__desc">
@@ -47,19 +47,19 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
         <button className="btn btn--list film-card__button" type="button" onClick={changeStatus}>
           {
 
-              <>
-                {
-                  isInList ?
-                    <svg viewBox="0 0 18 14" width="18" height="14">
-                      <use xlinkHref="#in-list"/>
-                    </svg> :
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"/>
-                    </svg>
-                }
-                <span>My list</span>
-                <span className="film-card__count">{myListLength}</span>
-              </>
+            <>
+              {
+                isInList ?
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#in-list"/>
+                  </svg> :
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"/>
+                  </svg>
+              }
+              <span>My list</span>
+              <span className="film-card__count">{myListLength}</span>
+            </>
           }
         </button>
 

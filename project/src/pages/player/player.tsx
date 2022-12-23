@@ -30,7 +30,7 @@ function Player(): JSX.Element {
       setTimeLeft(Math.round(videoRef.current?.duration - videoRef.current?.currentTime));
       setProgressPosition((videoRef.current?.currentTime * 100) / videoRef.current?.duration);
     }
-  }
+  };
 
   const getTimeLeft = () => {
     const hours = Math.floor(timeLeft / 60 / 60);
@@ -44,7 +44,7 @@ function Player(): JSX.Element {
     return hours > 0 ?
       `${timeToFormat(hours)}:${timeToFormat(minutes)}:${timeToFormat(seconds)}` :
       `${timeToFormat(minutes)}:${timeToFormat(seconds)}`;
-  }
+  };
 
   const dispatch = useAppDispatch();
   const params = useParams();
@@ -58,11 +58,12 @@ function Player(): JSX.Element {
   return ( film ?
     <div className="player">
       <video src={`${film.videoLink}#t=0`}
-             autoPlay
-             className="player__video"
-             poster={film.posterImage}
-             ref={videoRef}
-             onTimeUpdate={updateProgress}/>
+        autoPlay
+        className="player__video"
+        poster={film.posterImage}
+        ref={videoRef}
+        onTimeUpdate={updateProgress}
+      />
 
       <Link to={`/films/${film.id}`} type="button" className="player__exit">Exit</Link>
 
@@ -89,7 +90,7 @@ function Player(): JSX.Element {
 
           <div className="player__name">{film.name}</div>
 
-          <button type="button" className="player__full-screen" onClick={() => {videoRef.current?.requestFullscreen()}}>
+          <button type="button" className="player__full-screen" onClick={() => {videoRef.current?.requestFullscreen();}}>
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"/>
             </svg>
