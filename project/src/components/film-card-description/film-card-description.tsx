@@ -32,7 +32,7 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
       <div className="film-card__buttons">
         <Link to={`/player/${props.filmInfo.id}`} className="btn btn--play film-card__button">
           <svg viewBox="0 0 19 19" width="19" height="19">
-            <use xlinkHref="#play-s"></use>
+            <use xlinkHref="#play-s"/>
           </svg>
           <span>Play</span>
         </Link>
@@ -41,10 +41,10 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
           {
             isInList ?
               <svg viewBox="0 0 18 14" width="18" height="14">
-                <use xlinkHref="#in-list"></use>
+                <use xlinkHref="#in-list"/>
               </svg> :
               <svg viewBox="0 0 19 20" width="19" height="20">
-                <use xlinkHref="#add"></use>
+                <use xlinkHref="#add"/>
               </svg>
           }
           <span>My list</span>
