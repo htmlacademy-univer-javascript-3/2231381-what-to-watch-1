@@ -7,6 +7,8 @@ export const getFilm = (state: State): FilmInfo | null => state[StoreNameSpace.F
 
 export const getSimilarFilms = (state: State): FilmInfo[] => state[StoreNameSpace.Film].similarFilms;
 
+export const getSimilarFilmsLoaded = (state: State): boolean => state[StoreNameSpace.Film].similarFilmsLoaded;
+
 export const getReviews = (state: State): Review[] => state[StoreNameSpace.Film].reviews;
 
 export const getPostReviewError = (state: State): string | null => state[StoreNameSpace.Film].postReviewError;
