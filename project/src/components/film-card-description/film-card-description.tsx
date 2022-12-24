@@ -4,6 +4,10 @@ import {Link} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getChangedFilm, getMyListLength} from '../../store/my-list-data/selectors';
 import {changeFilmStatus, fetchMyList} from '../../store/api-action';
+import {getAuthStatus} from '../../store/auth-process/selectors';
+import {AuthStatus} from '../../types/AuthStatus';
+import {redirectToRoute} from '../../store/action';
+import {AppRoute} from '../../const';
 
 type FilmCardDescriptionProps = PropsWithChildren<{
   filmInfo: FilmInfo;
@@ -17,14 +21,21 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
 
   const dispatch = useAppDispatch();
 
+  const authStatus = useAppSelector(getAuthStatus);
   const changeStatus = () => {
-    dispatch(changeFilmStatus({filmId: props.filmInfo.id, status: +(!isInList)}));
+    if (authStatus === AuthStatus.NotAuthorized) {
+      dispatch(redirectToRoute(AppRoute.Login));
+    } else {
+      dispatch(changeFilmStatus({filmId: props.filmInfo.id, status: +(!isInList)}));
+    }
   };
 
   useEffect(() => {
     if (changedFilm && changedFilm.filmId === props.filmInfo.id){
       dispatch(fetchMyList());
       setIsInList(changedFilm.status);
+    } else if (!changedFilm) {
+      setIsInList(false);
     }
   }, [changedFilm, dispatch, props.filmInfo.id]);
 
@@ -46,7 +57,6 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
 
         <button className="btn btn--list film-card__button" type="button" onClick={changeStatus}>
           {
-
             <>
               {
                 isInList ?

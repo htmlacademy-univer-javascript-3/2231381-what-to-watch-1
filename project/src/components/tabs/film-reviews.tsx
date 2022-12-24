@@ -6,6 +6,13 @@ function FilmReviews() {
 
   const reviews = useAppSelector<Review[]>(getReviews);
 
+  const translateDate = (reviewDate: string) => {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+      'October', 'November', 'December'];
+    const date = new Date(reviewDate);
+    return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+  };
+
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
@@ -17,7 +24,7 @@ function FilmReviews() {
 
                 <footer className="review__details">
                   <cite className="review__author">{review.user.name}</cite>
-                  <time className="review__date">{review.date}</time>
+                  <time className="review__date">{translateDate(review.date)}</time>
                 </footer>
               </blockquote>
 

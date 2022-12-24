@@ -1,7 +1,7 @@
 import {MyListData} from '../../types/state';
 import {createSlice} from '@reduxjs/toolkit';
 import {StoreNameSpace} from '../../const';
-import {changeFilmStatus, fetchMyList} from '../api-action';
+import {changeFilmStatus, fetchMyList, logout} from '../api-action';
 
 const initialState: MyListData = {
   myList: [],
@@ -27,6 +27,11 @@ export const myListData = createSlice({
         const isInList = action.payload.isFavorite;
         state.myListLength += isInList ? 1 : -1;
         state.changedFilm = {filmId: action.payload.id, status: action.payload.isFavorite};
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.myList = [];
+        state.myListLength = 0;
+        state.changedFilm = null;
       });
   }
 });

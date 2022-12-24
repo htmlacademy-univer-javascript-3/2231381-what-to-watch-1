@@ -9,7 +9,7 @@ function Player(): JSX.Element {
   const film = useAppSelector(getFilm);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isPause, setIsPause] = useState(false);
+  const [isPause, setIsPause] = useState(true);
   const play = () => {
     if (videoRef.current) {
       if (isPause) {
@@ -51,14 +51,12 @@ function Player(): JSX.Element {
   useEffect(() => {
     if (params.id !== undefined) {
       dispatch(fetchFilm(params.id));
-      setIsPause(true);
     }
   }, [dispatch, params.id]);
 
   return ( film ?
     <div className="player">
       <video src={`${film.videoLink}#t=0`}
-        autoPlay
         className="player__video"
         poster={film.posterImage}
         ref={videoRef}

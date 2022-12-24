@@ -25,7 +25,13 @@ function App(): JSX.Element {
           }
         />
         <Route path={AppRoute.Film} element={<Film/>}/>
-        <Route path={AppRoute.AddReview} element={<AddReview/>}/>
+        <Route path={AppRoute.AddReview} element=
+          {
+            <PrivateRoute>
+              <AddReview/>
+            </PrivateRoute>
+          }
+        />
         <Route path={AppRoute.Player} element={<Player/>}/>
         <Route path={AppRoute.Page404} element={<Page404/>}/>
       </Routes>
