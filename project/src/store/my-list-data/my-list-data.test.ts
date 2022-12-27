@@ -1,7 +1,7 @@
-import {MyListData} from "../../types/state";
-import {myListData} from "./my-list-data";
-import {changeFilmStatus, fetchMyList, logout} from "../api-action";
-import {makeFakeFilm, makeFakeFilms} from "../../utils/mocks";
+import {MyListData} from '../../types/state';
+import {myListData} from './my-list-data';
+import {changeFilmStatus, fetchMyList, logout} from '../api-action';
+import {makeFakeFilm, makeFakeFilms} from '../../utils/mocks';
 
 const mockFilms = makeFakeFilms();
 
@@ -14,7 +14,7 @@ describe('Reducer: myListData', () => {
     changedFilm: null,
   };
 
-  beforeEach(() => { state = {...initialState}; })
+  beforeEach(() => { state = {...initialState}; });
 
   it('should return initial state without additional parameters', () => {
     expect(myListData.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
@@ -57,10 +57,10 @@ describe('Reducer: myListData', () => {
           changedFilm: {filmId: mockFilm.id, status: false}
         });
     });
-  })
+  });
 
   it('should clear my list data when logout', () => {
     expect(myListData.reducer(state, {type: logout.fulfilled.type}))
       .toEqual(initialState);
-  })
-})
+  });
+});

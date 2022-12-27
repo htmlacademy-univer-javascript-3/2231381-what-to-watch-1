@@ -1,7 +1,7 @@
-import {filmData, setPostReviewError} from "./film-data";
-import {FilmData} from "../../types/state";
-import {fetchFilm, fetchReviews, fetchSimilarFilms, postReview} from "../api-action";
-import {makeFakeFilm, makeFakeReview, makeFakeReviews, makeFakeFilms} from "../../utils/mocks";
+import {filmData, setPostReviewError} from './film-data';
+import {FilmData} from '../../types/state';
+import {fetchFilm, fetchReviews, fetchSimilarFilms, postReview} from '../api-action';
+import {makeFakeFilm, makeFakeReview, makeFakeReviews, makeFakeFilms} from '../../utils/mocks';
 
 const mockFilm = makeFakeFilm();
 const mockSimilarFilms = makeFakeFilms();
@@ -19,7 +19,7 @@ describe('Reducer: filmData', () => {
     similarFilmsLoaded: false,
   };
 
-  beforeEach(() => { state = {...initialState}; })
+  beforeEach(() => { state = {...initialState}; });
 
   it('should return initial state without additional parameters', () => {
     expect(filmData.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
@@ -29,7 +29,7 @@ describe('Reducer: filmData', () => {
   it('should update postReviewError to payload data', () => {
     expect(filmData.reducer(state, { type: setPostReviewError.type, payload: 'error' }))
       .toEqual({...initialState, postReviewError: 'error'});
-  })
+  });
 
   describe('api-action: fetchFilm', () => {
     it('should update film to payload data when fetchFilm fulfilled', () => {
@@ -70,7 +70,7 @@ describe('Reducer: filmData', () => {
           similarFilmsLoaded: false
         });
     });
-  })
+  });
 
   it('should update review to payload data when fetchReview fulfilled', () => {
     expect(filmData.reducer(state, { type: fetchReviews.fulfilled.type, payload: mockReviews }))
@@ -92,5 +92,5 @@ describe('Reducer: filmData', () => {
       expect(filmData.reducer(state, { type: postReview.rejected.type }))
         .toEqual({...initialState, postReviewError: 'Что-то пошло не так'});
     });
-  })
-})
+  });
+});

@@ -1,9 +1,9 @@
-import {authProcess, setLoginError} from "./auth-process";
-import {AuthStatus} from "../../types/AuthStatus";
-import {LogInError} from "../../types/LogInError";
-import {AuthProcess} from "../../types/state";
-import {getAuthStatus, login, logout} from "../api-action";
-import {makeFakeUser} from "../../utils/mocks";
+import {authProcess, setLoginError} from './auth-process';
+import {AuthStatus} from '../../types/AuthStatus';
+import {LogInError} from '../../types/LogInError';
+import {AuthProcess} from '../../types/state';
+import {getAuthStatus, login, logout} from '../api-action';
+import {makeFakeUser} from '../../utils/mocks';
 
 const mockUser = makeFakeUser();
 
@@ -14,9 +14,9 @@ describe('Reducer: authProcess', () => {
     authorizationStatus: AuthStatus.Unknown,
     user: null,
     loginError: LogInError.NoError,
-  }
+  };
 
-  beforeEach(() => { state = {...initialState}; })
+  beforeEach(() => { state = {...initialState}; });
 
   it('should return initial state without additional parameters', () => {
     expect(authProcess.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
@@ -26,7 +26,7 @@ describe('Reducer: authProcess', () => {
   it('should update loginError to payload data', () => {
     expect(authProcess.reducer(state, { type: setLoginError.type, payload: LogInError.NotValidEmailAndPasswordCombination }))
       .toEqual({...initialState, loginError: LogInError.NotValidEmailAndPasswordCombination});
-  })
+  });
 
   it('should update authorizationStatus to "Authorized" and update user to payload data when user is authorized', () => {
     expect(authProcess.reducer(state, { type: getAuthStatus.fulfilled.type, payload: mockUser }))
@@ -60,4 +60,4 @@ describe('Reducer: authProcess', () => {
     expect(authProcess.reducer(state, { type: logout.fulfilled.type }))
       .toEqual({...initialState, authorizationStatus: AuthStatus.NotAuthorized});
   });
-})
+});

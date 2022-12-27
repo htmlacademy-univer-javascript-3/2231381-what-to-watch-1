@@ -1,7 +1,7 @@
-import {MainData} from "../../types/state";
-import {mainData, setGenres, setSelectedGenre} from "./main-data";
-import {makeFakeFilm, makeFakeFilms, makeFakeGenres} from "../../utils/mocks";
-import {fetchFilms, fetchPromoFilm} from "../api-action";
+import {MainData} from '../../types/state';
+import {mainData, setGenres, setSelectedGenre} from './main-data';
+import {makeFakeFilm, makeFakeFilms, makeFakeGenres} from '../../utils/mocks';
+import {fetchFilms, fetchPromoFilm} from '../api-action';
 
 const mockFilms = makeFakeFilms();
 
@@ -14,9 +14,9 @@ describe('Reducer: mainData', () => {
     genres: ['All Genres'],
     selectedGenre: 'All Genres',
     isLoading: false,
-  }
+  };
 
-  beforeEach(() => { state = {...initialState}; })
+  beforeEach(() => { state = {...initialState}; });
 
   it('should return initial state without additional parameters', () => {
     expect(mainData.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
@@ -51,5 +51,5 @@ describe('Reducer: mainData', () => {
 
     expect(mainData.reducer(state, {type: fetchPromoFilm.fulfilled.type, payload: mockFilm}))
       .toEqual({...initialState, promoFilm: mockFilm});
-  })
-})
+  });
+});

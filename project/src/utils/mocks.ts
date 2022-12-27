@@ -1,7 +1,7 @@
-import {User} from "../types/User";
+import {User} from '../types/User';
 import {name, internet, lorem, image, datatype} from 'faker';
-import {FilmInfo} from "../types/FilmInfo";
-import {Review} from "../types/Review";
+import {FilmInfo} from '../types/FilmInfo';
+import {Review} from '../types/Review';
 
 export const makeFakeUser = (): User => ({
   avatarUrl: internet.avatar(),
@@ -11,13 +11,15 @@ export const makeFakeUser = (): User => ({
   token: 'T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=',
 });
 
+export const makeFakeId = (): number => (datatype.number());
+
 export const makeFakeFilm = (isFavourite?: boolean): FilmInfo => ({
   id: datatype.number(),
   name: lorem.word(),
   posterImage: image.imageUrl(),
   previewImage: image.imageUrl(),
   backgroundImage: image.imageUrl(),
-  backgroundColor: "#866866",
+  backgroundColor: '#866866',
   videoLink: internet.url(),
   previewVideoLink: internet.url(),
   description: lorem.paragraph(),
@@ -32,9 +34,9 @@ export const makeFakeFilm = (isFavourite?: boolean): FilmInfo => ({
 });
 
 export const makeFakeFilms = (genres?: string[]): FilmInfo[] => {
-  let films = [];
+  const films = [];
   for (let i = 0; i < 5; i++) {
-    let film = makeFakeFilm();
+    const film = makeFakeFilm();
     if (genres && genres[i]) {
       film.genre = genres[i];
     }
