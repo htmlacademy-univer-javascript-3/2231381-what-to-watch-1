@@ -44,7 +44,7 @@ function Main(): JSX.Element {
       {
         promoFilm &&
         <section className="film-card">
-          <FilmCardBackground backgroundImgSrc={promoFilm.backgroundImage} filmName={promoFilm.name}/>
+          <FilmCardBackground backgroundImgSrc={promoFilm.backgroundImage} filmName={promoFilm.name} backgroundColor={promoFilm.backgroundColor}/>
 
           <Header className='film-card__head'/>
 

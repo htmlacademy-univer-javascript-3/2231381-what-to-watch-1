@@ -1,17 +1,16 @@
 type FilmCardBackgroundProps = {
   backgroundImgSrc: string | undefined;
+  backgroundColor: string,
   filmName: string;
 }
 
 function FilmCardBackground(props: FilmCardBackgroundProps) {
   return (
-    <div className="film-card__bg">
-      {
-        props.backgroundImgSrc ?
-          <img src={props.backgroundImgSrc} alt={props.filmName}/> :
-          null
-      }
-    </div>
+    props.backgroundImgSrc ?
+      <div className="film-card__bg">
+            <img src={props.backgroundImgSrc} alt={props.filmName}/>
+      </div> :
+      <div className="film-card__bg" style={{backgroundColor: props.backgroundColor}}/>
   );
 }
 

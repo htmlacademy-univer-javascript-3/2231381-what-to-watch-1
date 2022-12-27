@@ -37,6 +37,7 @@ export const authProcess = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.authorizationStatus = AuthStatus.NotAuthorized;
+        state.user = null;
       });
   }
 });

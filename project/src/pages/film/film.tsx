@@ -43,7 +43,7 @@ function Film(): JSX.Element {
       { film &&
         <section className="film-card film-card--full">
           <div className="film-card__hero">
-            <FilmCardBackground backgroundImgSrc={film.backgroundImage} filmName={film.name}/>
+            <FilmCardBackground backgroundImgSrc={film.backgroundImage} filmName={film.name} backgroundColor={film.backgroundColor}/>
 
             <Header className='film-card__head'/>
 

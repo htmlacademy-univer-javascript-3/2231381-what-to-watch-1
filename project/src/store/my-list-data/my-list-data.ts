@@ -12,8 +12,7 @@ const initialState: MyListData = {
 export const myListData = createSlice({
   name: StoreNameSpace.MyList,
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchMyList.fulfilled, (state, action) => {

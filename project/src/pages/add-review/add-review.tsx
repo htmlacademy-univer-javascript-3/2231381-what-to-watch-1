@@ -13,7 +13,7 @@ function AddReview(): JSX.Element {
   return ( film ?
     <section className="film-card film-card--full">
       <div className="film-card__header">
-        <FilmCardBackground backgroundImgSrc={film.backgroundImage} filmName={film.name}/>
+        <FilmCardBackground backgroundImgSrc={film.backgroundImage} filmName={film.name} backgroundColor={film.backgroundColor}/>
 
         <Header className=''>
           <nav className="breadcrumbs">
