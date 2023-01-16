@@ -1,8 +1,8 @@
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import HistoryRouter from "../history-router/history-router";
-import FilmCardBackground from "./film-card-background";
-import {makeFakeFilm} from "../../utils/mocks";
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import HistoryRouter from '../history-router/history-router';
+import FilmCardBackground from './film-card-background';
+import {makeFakeFilm} from '../../utils/mocks';
 
 describe('Component: FilmCardBackground', () => {
   const history = createMemoryHistory();
@@ -13,8 +13,9 @@ describe('Component: FilmCardBackground', () => {
     render(
       <HistoryRouter history={history}>
         <FilmCardBackground backgroundImgSrc={mockFilm.backgroundImage}
-                            backgroundColor={mockFilm.backgroundColor}
-                            filmName={mockFilm.name}/>
+          backgroundColor={mockFilm.backgroundColor}
+          filmName={mockFilm.name}
+        />
       </HistoryRouter>
     );
 
@@ -29,12 +30,13 @@ describe('Component: FilmCardBackground', () => {
     render(
       <HistoryRouter history={history}>
         <FilmCardBackground backgroundImgSrc={undefined}
-                            backgroundColor={mockFilm.backgroundColor}
-                            filmName={mockFilm.name}/>
+          backgroundColor={mockFilm.backgroundColor}
+          filmName={mockFilm.name}
+        />
       </HistoryRouter>
     );
 
     expect(screen.queryByRole('img')).not.toBeInTheDocument();
     expect(screen.getByTestId('film-card-background-color')).toBeInTheDocument();
-  })
-})
+  });
+});

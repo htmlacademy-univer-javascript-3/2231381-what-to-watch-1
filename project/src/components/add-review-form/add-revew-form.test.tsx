@@ -1,10 +1,10 @@
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import HistoryRouter from "../history-router/history-router";
-import {configureMockStore} from "@jedmao/redux-mock-store";
-import AddReviewForm from "./add-review-form";
-import {makeFakeFilm} from "../../utils/mocks";
-import {Provider} from "react-redux";
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import HistoryRouter from '../history-router/history-router';
+import {configureMockStore} from '@jedmao/redux-mock-store';
+import AddReviewForm from './add-review-form';
+import {makeFakeFilm} from '../../utils/mocks';
+import {Provider} from 'react-redux';
 
 describe('Component: AddReviewForm', () => {
   const mockStore = configureMockStore();
@@ -37,5 +37,5 @@ describe('Component: AddReviewForm', () => {
     const postButton = screen.getByRole('button');
     expect(postButton).toBeInTheDocument();
     expect(postButton).toHaveTextContent('Post');
-  })
-})
+  });
+});

@@ -1,6 +1,6 @@
 import {MyListData} from '../../types/state';
 import {createSlice} from '@reduxjs/toolkit';
-import {StoreNameSpace} from '../../const';
+import {Namespace} from '../../const';
 import {changeFilmStatus, fetchMyList, logout} from '../api-action';
 
 const initialState: MyListData = {
@@ -10,7 +10,7 @@ const initialState: MyListData = {
 };
 
 export const myListData = createSlice({
-  name: StoreNameSpace.MyList,
+  name: Namespace.MyList,
   initialState,
   reducers: {},
   extraReducers(builder) {

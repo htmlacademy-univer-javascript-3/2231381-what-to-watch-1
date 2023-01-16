@@ -1,8 +1,8 @@
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import HistoryRouter from "../history-router/history-router";
-import VideoPlayer from "./video-player";
-import {makeFakeFilm} from "../../utils/mocks";
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import HistoryRouter from '../history-router/history-router';
+import VideoPlayer from './video-player';
+import {makeFakeFilm} from '../../utils/mocks';
 
 describe('Component: VideoPlayer', () => {
 
@@ -20,5 +20,5 @@ describe('Component: VideoPlayer', () => {
     const video = screen.getByTestId('video');
     expect(video).toBeInTheDocument();
     expect(video).toHaveAttribute('src', `${mockFilm.videoLink}#t=0`);
-  })
-})
+  });
+});

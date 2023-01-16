@@ -1,13 +1,13 @@
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import HistoryRouter from "../../components/history-router/history-router";
-import {configureMockStore} from "@jedmao/redux-mock-store";
-import {AuthStatus} from "../../types/AuthStatus";
-import {LogInError} from "../../types/LogInError";
-import {Provider} from "react-redux";
-import {makeFakeUser} from "../../utils/mocks";
-import Header from "./header";
-import {AppRoute} from "../../const";
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import HistoryRouter from '../../components/history-router/history-router';
+import {configureMockStore} from '@jedmao/redux-mock-store';
+import {AuthStatus} from '../../types/AuthStatus';
+import {LogInError} from '../../types/LogInError';
+import {Provider} from 'react-redux';
+import {makeFakeUser} from '../../utils/mocks';
+import Header from './header';
+import {AppRoute} from '../../const';
 
 describe('Component: Header', () => {
   const mockStore = configureMockStore();
@@ -65,7 +65,7 @@ describe('Component: Header', () => {
 
     const links = screen.queryAllByRole('link');
     expect(links).toHaveLength(2);
-    expect(links.find(link => link.getAttribute('href') === '/')).toBeDefined();
-    expect(links.find(link => link.getAttribute('href') === AppRoute.Login)).toBeDefined();
+    expect(links.find((link) => link.getAttribute('href') === '/')).toBeDefined();
+    expect(links.find((link) => link.getAttribute('href') === AppRoute.Login)).toBeDefined();
   });
-})
+});

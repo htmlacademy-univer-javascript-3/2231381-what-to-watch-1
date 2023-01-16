@@ -31,8 +31,8 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
   };
 
   useEffect(() => {
+    dispatch(fetchMyList());
     if (changedFilm && changedFilm.filmId === props.filmInfo.id){
-      dispatch(fetchMyList());
       setIsInList(changedFilm.status);
     } else if (!changedFilm) {
       setIsInList(false);

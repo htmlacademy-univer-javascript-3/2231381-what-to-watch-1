@@ -1,8 +1,8 @@
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import HistoryRouter from "../history-router/history-router";
-import {makeFakeFilm} from "../../utils/mocks";
-import Tabs from "./tabs";
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import HistoryRouter from '../history-router/history-router';
+import {makeFakeFilm} from '../../utils/mocks';
+import Tabs from './tabs';
 
 describe('Component: Tabs', () => {
   const mockFilm = makeFakeFilm();
@@ -21,5 +21,5 @@ describe('Component: Tabs', () => {
     }
 
     expect(screen.getByTestId('Details')).toBeInTheDocument();
-  })
-})
+  });
+});

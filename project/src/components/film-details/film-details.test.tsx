@@ -1,8 +1,8 @@
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import HistoryRouter from "../history-router/history-router";
-import {makeFakeFilm} from "../../utils/mocks";
-import FilmDetails from "./film-details";
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import HistoryRouter from '../history-router/history-router';
+import {makeFakeFilm} from '../../utils/mocks';
+import FilmDetails from './film-details';
 
 describe('Component: FilmDetails', () => {
   const mockFilm = makeFakeFilm();
@@ -22,5 +22,5 @@ describe('Component: FilmDetails', () => {
     expect(screen.getByText(mockFilm.runTime)).toBeInTheDocument();
     expect(screen.getByText(mockFilm.genre)).toBeInTheDocument();
     expect(screen.getByText(mockFilm.released)).toBeInTheDocument();
-  })
-})
+  });
+});

@@ -4,14 +4,14 @@ import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {AppRoute} from '../../const';
 import App from './app';
-import HistoryRouter from "../history-router/history-router";
-import {AuthStatus} from "../../types/AuthStatus";
-import {LogInError} from "../../types/LogInError";
-import thunk from "redux-thunk";
-import {createAPI} from "../../services/api";
-import {makeFakeFilms, makeFakeUser} from "../../utils/mocks";
-import {testSignInRender} from "../../pages/sign-in/sign-in.test";
-import {AuthProcess} from "../../types/state";
+import HistoryRouter from '../history-router/history-router';
+import {AuthStatus} from '../../types/AuthStatus';
+import {LogInError} from '../../types/LogInError';
+import thunk from 'redux-thunk';
+import {createAPI} from '../../services/api';
+import {makeFakeFilms, makeFakeUser} from '../../utils/mocks';
+import {testSignInRender} from '../../pages/sign-in/sign-in.test';
+import {AuthProcess} from '../../types/state';
 
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
@@ -55,7 +55,9 @@ function renderFakeApp (authStatus?: AuthStatus) {
           authorizationStatus: AuthStatus.Authorized,
           user: makeFakeUser(),
           loginError: LogInError.NoError,
-        })}>
+        })
+      }
+      >
         <HistoryRouter history={history}>
           <App/>
         </HistoryRouter>
@@ -71,7 +73,9 @@ function renderFakeApp (authStatus?: AuthStatus) {
         authorizationStatus: AuthStatus.NotAuthorized,
         user: null,
         loginError: LogInError.NoError,
-      })}>
+      })
+    }
+    >
       <HistoryRouter history={history}>
         <App/>
       </HistoryRouter>
@@ -92,12 +96,11 @@ describe('Application Routing', () => {
   it('should render sign in page when user navigate to "/login"', () => {
     history.push(AppRoute.Login);
 
-    renderFakeApp(AuthStatus.NotAuthorized)
+    renderFakeApp(AuthStatus.NotAuthorized);
 
     testSignInRender();
   });
 
-  // это же private
   it('should render my list page when user navigate to "/mylist"', () => {
     history.push(AppRoute.MyList);
 
@@ -120,7 +123,6 @@ describe('Application Routing', () => {
     expect(screen.getByText(/More Like This/i)).toBeInTheDocument();
   });
 
-  // это же private
   it('should render add review page when user navigate to "/films/:id/review"', () => {
     history.push(`/films/${mockFilm.id}/review`);
 

@@ -1,7 +1,7 @@
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import HistoryRouter from "../../components/history-router/history-router";
-import Footer from "./footer";
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import HistoryRouter from '../../components/history-router/history-router';
+import Footer from './footer';
 
 describe('Component: Footer', () => {
 
@@ -18,5 +18,5 @@ describe('Component: Footer', () => {
     expect(logoLink).toBeInTheDocument();
     expect(logoLink).toHaveAttribute('href', '/');
     expect(screen.getByText('© 2019 What to watch Ltd.')).toBeInTheDocument();
-  })
-})
+  });
+});

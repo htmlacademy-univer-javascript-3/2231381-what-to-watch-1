@@ -1,19 +1,12 @@
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useAppSelector} from '../../hooks';
 import {getMyList} from '../../store/my-list-data/selectors';
-import {useEffect} from 'react';
-import {fetchMyList} from '../../store/api-action';
 
 function MyList(): JSX.Element {
 
   const myList = useAppSelector(getMyList);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchMyList());
-  });
 
   return (
     <div className="user-page">

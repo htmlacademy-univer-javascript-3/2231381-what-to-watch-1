@@ -7,7 +7,7 @@ export enum AppRoute {
   Page404 = '*'
 }
 
-export enum StoreNameSpace {
+export enum Namespace {
   Auth = 'AUTH',
   Film = 'FILM',
   Main = 'MAIN',

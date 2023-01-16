@@ -1,6 +1,6 @@
 import {FilmData} from '../../types/state';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {AppRoute, StoreNameSpace} from '../../const';
+import {AppRoute, Namespace} from '../../const';
 import {fetchFilm, fetchReviews, fetchSimilarFilms, postReview} from '../api-action';
 import {useAppDispatch} from '../../hooks';
 import {redirectToRoute} from '../action';
@@ -14,7 +14,7 @@ const initialState: FilmData = {
 };
 
 export const filmData = createSlice({
-  name: StoreNameSpace.Film,
+  name: Namespace.Film,
   initialState,
   reducers: {
     setPostReviewError: (state, action: PayloadAction<string | null>) => {

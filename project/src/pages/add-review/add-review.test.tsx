@@ -1,16 +1,16 @@
-import HistoryRouter from "../../components/history-router/history-router";
-import {render, screen} from "@testing-library/react";
-import {createMemoryHistory} from "history";
-import {Provider} from "react-redux";
-import {configureMockStore} from "@jedmao/redux-mock-store";
-import {AuthStatus} from "../../types/AuthStatus";
-import {LogInError} from "../../types/LogInError";
-import AddReview from "./add-review";
-import {makeFakeFilm, makeFakeUser} from "../../utils/mocks";
-import Page404 from "../page-404/page-404";
+import HistoryRouter from '../../components/history-router/history-router';
+import {render, screen} from '@testing-library/react';
+import {createMemoryHistory} from 'history';
+import {Provider} from 'react-redux';
+import {configureMockStore} from '@jedmao/redux-mock-store';
+import {AuthStatus} from '../../types/AuthStatus';
+import {LogInError} from '../../types/LogInError';
+import AddReview from './add-review';
+import {makeFakeFilm, makeFakeUser} from '../../utils/mocks';
+import Page404 from '../page-404/page-404';
 import {Route, Routes} from 'react-router-dom';
-import {AppRoute} from "../../const";
-import PrivateRoute from "../../components/private-route/private-route";
+import {AppRoute} from '../../const';
+import PrivateRoute from '../../components/private-route/private-route';
 
 describe('Component: AddReview', () => {
   const mockStore = configureMockStore();
@@ -54,7 +54,7 @@ describe('Component: AddReview', () => {
       AUTH: {
         authorizationStatus: AuthStatus.Authorized,
         user: mockUser,
-        loginError: LogInError.NoError  ,
+        loginError: LogInError.NoError ,
       },
       FILM: {
         film: null,
@@ -84,4 +84,4 @@ describe('Component: AddReview', () => {
 
     expect(screen.getByText('404. Такой страницы не существует')).toBeInTheDocument();
   });
-})
+});

@@ -1,8 +1,8 @@
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import HistoryRouter from "../history-router/history-router";
-import {makeFakeFilms} from "../../utils/mocks";
-import FilmsList from "./films-list";
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import HistoryRouter from '../history-router/history-router';
+import {makeFakeFilms} from '../../utils/mocks';
+import FilmsList from './films-list';
 
 describe('Component: FilmsList', () => {
 
@@ -36,5 +36,5 @@ describe('Component: FilmsList', () => {
 
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
     expect(screen.queryAllByTestId('small-film-card')).toHaveLength(7);
-  })
-})
+  });
+});

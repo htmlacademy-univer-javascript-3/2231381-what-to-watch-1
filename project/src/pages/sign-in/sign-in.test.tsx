@@ -1,11 +1,11 @@
-import {configureMockStore} from "@jedmao/redux-mock-store";
-import {AuthStatus} from "../../types/AuthStatus";
-import {LogInError} from "../../types/LogInError";
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import {Provider} from "react-redux";
-import HistoryRouter from "../../components/history-router/history-router";
-import SignIn from "./sign-in";
+import {configureMockStore} from '@jedmao/redux-mock-store';
+import {AuthStatus} from '../../types/AuthStatus';
+import {LogInError} from '../../types/LogInError';
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import {Provider} from 'react-redux';
+import HistoryRouter from '../../components/history-router/history-router';
+import SignIn from './sign-in';
 
 describe('Component: SignIn', () => {
   const mockStore = configureMockStore();
@@ -37,11 +37,11 @@ export function testSignInRender() {
   expect(screen.getByRole('button')).toHaveTextContent('Sign in');
   expect(screen.getByRole('button')).not.toBeDisabled();
 
-  const emailInput = screen.getByTestId('user-email')
+  const emailInput = screen.getByTestId('user-email');
   expect(emailInput).toBeInTheDocument();
-  expect(emailInput).toHaveAttribute("type", "email");
+  expect(emailInput).toHaveAttribute('type', 'email');
 
-  const passwordInput = screen.getByTestId('user-password')
+  const passwordInput = screen.getByTestId('user-password');
   expect(passwordInput).toBeInTheDocument();
-  expect(passwordInput).toHaveAttribute("type", "password");
+  expect(passwordInput).toHaveAttribute('type', 'password');
 }

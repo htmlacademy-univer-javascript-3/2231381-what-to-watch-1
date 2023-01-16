@@ -1,11 +1,11 @@
-import HistoryRouter from "../../components/history-router/history-router";
-import Page404 from "./page-404";
-import {render, screen} from "@testing-library/react";
-import {createMemoryHistory} from "history";
-import {Provider} from "react-redux";
-import {configureMockStore} from "@jedmao/redux-mock-store";
-import {AuthStatus} from "../../types/AuthStatus";
-import {LogInError} from "../../types/LogInError";
+import HistoryRouter from '../../components/history-router/history-router';
+import Page404 from './page-404';
+import {render, screen} from '@testing-library/react';
+import {createMemoryHistory} from 'history';
+import {Provider} from 'react-redux';
+import {configureMockStore} from '@jedmao/redux-mock-store';
+import {AuthStatus} from '../../types/AuthStatus';
+import {LogInError} from '../../types/LogInError';
 
 describe('Component: Page404', () => {
   const mockStore = configureMockStore();
@@ -31,4 +31,4 @@ describe('Component: Page404', () => {
     expect(screen.getByText('404. Такой страницы не существует')).toBeInTheDocument();
     expect(screen.queryAllByRole('link')).not.toHaveLength(0);
   });
-})
+});

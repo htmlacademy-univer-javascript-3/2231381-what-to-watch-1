@@ -2,7 +2,7 @@ import {AuthProcess} from '../../types/state';
 import {AuthStatus} from '../../types/AuthStatus';
 import {LogInError} from '../../types/LogInError';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {StoreNameSpace} from '../../const';
+import {Namespace} from '../../const';
 import {getAuthStatus, login, logout} from '../api-action';
 
 const initialState: AuthProcess = {
@@ -12,7 +12,7 @@ const initialState: AuthProcess = {
 };
 
 export const authProcess = createSlice({
-  name: StoreNameSpace.Auth,
+  name: Namespace.Auth,
   initialState,
   reducers: {
     setLoginError: (state, action: PayloadAction<LogInError>) => {

@@ -1,7 +1,7 @@
-import {createMemoryHistory} from "history";
-import {render, screen} from "@testing-library/react";
-import HistoryRouter from "../../components/history-router/history-router";
-import Logo from "./logo";
+import {createMemoryHistory} from 'history';
+import {render, screen} from '@testing-library/react';
+import HistoryRouter from '../../components/history-router/history-router';
+import Logo from './logo';
 
 describe('Component: Logo', () => {
 
@@ -17,5 +17,5 @@ describe('Component: Logo', () => {
     const logoLink = screen.getByRole('link');
     expect(logoLink).toBeInTheDocument();
     expect(logoLink).toHaveAttribute('href', '/');
-  })
-})
+  });
+});
