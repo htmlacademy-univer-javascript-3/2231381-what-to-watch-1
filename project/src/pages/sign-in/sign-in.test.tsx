@@ -28,16 +28,20 @@ describe('Component: SignIn', () => {
       </Provider>
     );
 
-    expect(screen.getByRole('button')).toBeInTheDocument();
-    expect(screen.getByRole('button')).toHaveTextContent('Sign in');
-    expect(screen.getByRole('button')).not.toBeDisabled();
-
-    const emailInput = screen.getByTestId('user-email')
-    expect(emailInput).toBeInTheDocument();
-    expect(emailInput).toHaveAttribute("type", "email");
-
-    const passwordInput = screen.getByTestId('user-password')
-    expect(passwordInput).toBeInTheDocument();
-    expect(passwordInput).toHaveAttribute("type", "password");
+    testSignInRender();
   });
-})
+});
+
+export function testSignInRender() {
+  expect(screen.getByRole('button')).toBeInTheDocument();
+  expect(screen.getByRole('button')).toHaveTextContent('Sign in');
+  expect(screen.getByRole('button')).not.toBeDisabled();
+
+  const emailInput = screen.getByTestId('user-email')
+  expect(emailInput).toBeInTheDocument();
+  expect(emailInput).toHaveAttribute("type", "email");
+
+  const passwordInput = screen.getByTestId('user-password')
+  expect(passwordInput).toBeInTheDocument();
+  expect(passwordInput).toHaveAttribute("type", "password");
+}
