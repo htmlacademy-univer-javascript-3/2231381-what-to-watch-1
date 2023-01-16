@@ -26,7 +26,8 @@ function SignIn(): JSX.Element{
       case LogInError.NotValidPassword:
         return (
           <div className="sign-in__message">
-            <p>Please enter a valid password</p>
+            <p>Please enter a valid password.</p>
+            <p>Password must contain at least one letter and one digit.</p>
           </div>
         );
       case LogInError.NotValidEmailAndPasswordCombination:
@@ -43,6 +44,8 @@ function SignIn(): JSX.Element{
 
   const formRef = useRef(null);
 
+  const isValidPassword = (password: string) => /[a-zA-Z]/.test(password) && /\d/.test(password);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (formRef.current){
@@ -51,7 +54,7 @@ function SignIn(): JSX.Element{
       const password = formData.get('user-password');
       if (email === null || email === '') {
         dispatch(setLoginError(LogInError.NotValidEmail));
-      } else if (password === null || password === '') {
+      } else if (password === null || password === '' || !isValidPassword(password.toString())) {
         dispatch(setLoginError(LogInError.NotValidPassword));
       } else {
         dispatch(login({email: email?.toString() || '', password: password?.toString() || ''}));

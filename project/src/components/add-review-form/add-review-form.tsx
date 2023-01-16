@@ -10,17 +10,11 @@ function AddReviewForm({filmId}: {filmId: number}) {
   const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState({
-    rating: 0,
+    rating: -1,
     reviewText: ''
   });
 
-  const onChangeReview = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const {name, value} = evt.target;
-    setFormData({...formData, [name]: value});
-    dispatch(setPostReviewError(null));
-  };
-
-  const onChangeRating = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (evt: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
     setFormData({...formData, [name]: value});
     dispatch(setPostReviewError(null));
@@ -45,7 +39,7 @@ function AddReviewForm({filmId}: {filmId: number}) {
                     type="radio"
                     name="rating"
                     value={ratingValue.toString()}
-                    onChange={onChangeRating}
+                    onChange={onChange}
                   />
                   <label className="rating__label" htmlFor={`star-${ratingValue.toString()}`}>{`Rating ${ratingValue.toString()}`}</label>
                 </>))
@@ -58,11 +52,17 @@ function AddReviewForm({filmId}: {filmId: number}) {
             name="reviewText"
             id="review-text"
             placeholder="Review text"
-            onChange={onChangeReview}
+            onChange={onChange}
+            minLength={50}
+            maxLength={400}
           >
           </textarea>
           <div className="add-review__submit">
-            <button className="add-review__btn" type="submit">Post</button>
+            {
+              formData.rating !== -1 && formData.reviewText.length >= 50 ?
+                <button className="add-review__btn" type="submit">Post</button> :
+                <button className="add-review__btn" type="submit" disabled>Post</button>
+            }
           </div>
 
         </div>

@@ -10,6 +10,7 @@ const initialState: FilmData = {
   similarFilms: [],
   reviews: [],
   postReviewError: null,
+  similarFilmsLoaded: false,
 };
 
 export const filmData = createSlice({
@@ -34,12 +35,15 @@ export const filmData = createSlice({
       })
       .addCase(fetchSimilarFilms.fulfilled, (state, action) => {
         state.similarFilms = action.payload;
+        state.similarFilmsLoaded = true;
       })
       .addCase(fetchSimilarFilms.pending, (state) => {
         state.similarFilms = [];
+        state.similarFilmsLoaded = false;
       })
       .addCase(fetchSimilarFilms.rejected, (state) => {
         state.similarFilms = [];
+        state.similarFilmsLoaded = false;
       })
       .addCase(fetchReviews.fulfilled, (state, action) => {
         state.reviews = action.payload;

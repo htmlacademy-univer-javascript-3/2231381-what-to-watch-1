@@ -9,8 +9,9 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useEffect} from 'react';
 import {fetchFilm, fetchReviews, fetchSimilarFilms} from '../../store/api-action';
 import {AuthStatus} from '../../types/AuthStatus';
-import {getFilm, getSimilarFilms} from '../../store/film-data/selectors';
+import {getFilm, getSimilarFilms, getSimilarFilmsLoaded} from '../../store/film-data/selectors';
 import {getAuthStatus} from '../../store/auth-process/selectors';
+import Spinner from '../../components/spinner/spinner';
 
 export enum FilmPageContentType {
   Overview='Overview',
@@ -26,6 +27,7 @@ function Film(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthStatus);
   const film = useAppSelector(getFilm);
   const similarFilms = useAppSelector(getSimilarFilms);
+  const similarFilmsLoaded = useAppSelector(getSimilarFilmsLoaded);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -62,13 +64,17 @@ function Film(): JSX.Element {
 
             </div>
           </div>
-        </section>}
+        </section> }
 
 
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmsList films={similarFilms} genre={film?.genre || 'All Genres'}/>
+          {
+            similarFilmsLoaded && film ?
+              <FilmsList films={similarFilms} genre={film.genre || 'All Genres'}/> :
+              <Spinner/>
+          }
         </section>
 
         <Footer/>

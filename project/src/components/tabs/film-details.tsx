@@ -4,10 +4,10 @@ import React, {useMemo} from 'react';
 function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
 
   const renderStarringActors = (starring: string[]) => starring.slice(0, starring.length - 2).map((actor) => (
-    <p key={actor}>
+    <p key={actor} style={{margin: '0'}}>
       {actor},
     </p>
-  )).concat(<p>{starring[starring.length - 1]}</p>);
+  )).concat(<p style={{margin: '0'}}>{starring[starring.length - 1]}</p>);
   const starringActors = useMemo(() => renderStarringActors(filmInfo.starring), [filmInfo]);
 
   return (
