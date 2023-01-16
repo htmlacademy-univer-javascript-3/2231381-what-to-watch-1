@@ -1,7 +1,7 @@
 import {FilmInfo} from '../../types/FilmInfo';
-import FilmOverview from './film-overview';
-import FilmDetails from './film-details';
-import FilmReviews from './film-reviews';
+import FilmOverview from '../film-overview/film-overview';
+import FilmDetails from '../film-details/film-details';
+import FilmReviews from '../film-reviews/film-reviews';
 import {useMemo, useState} from 'react';
 
 type TabProps = {
@@ -18,7 +18,7 @@ function Tabs(props: TabProps) {
     for (const content of tabsNames){
       const className = content === tab ? 'film-nav__item--active' : '';
       tabs.push(
-        <li className={`film-nav__item ${className}`} key={content}>
+        <li className={`film-nav__item ${className}`} key={content} data-testid={content}>
           <button className="film-nav__link"
             onClick={() => setTab(content)}
             style={{background:'transparent', border:'none'}}

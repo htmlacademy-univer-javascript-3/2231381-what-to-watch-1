@@ -26,7 +26,7 @@ function Main(): JSX.Element {
     for (const value of (genres)){
       const className = value === selectedGenre ? 'catalog__genres-item--active' : '';
       links.push(
-        <li className={`catalog__genres-item ${className}`}>
+        <li className={`catalog__genres-item ${className}`} key={value}>
           <button className="catalog__genres-link"
             onClick={() => dispatch(setSelectedGenre(value))}
             style={{background:'transparent', border:'none'}}

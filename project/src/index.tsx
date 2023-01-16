@@ -4,6 +4,8 @@ import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {fetchFilms, fetchMyList, getAuthStatus} from './store/api-action';
+import HistoryRouter from "./components/history-router/history-router";
+import browserHistory from "./browser-history";
 
 store.dispatch(fetchFilms());
 store.dispatch(getAuthStatus());
@@ -16,7 +18,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App/>
+      <HistoryRouter history={browserHistory}>
+        <App/>
+      </HistoryRouter>
     </Provider>
   </React.StrictMode>,
 );

@@ -11,5 +11,5 @@ export enum StoreNameSpace {
   Auth = 'AUTH',
   Film = 'FILM',
   Main = 'MAIN',
-  MyList = 'MY LIST'
+  MyList = 'MYLIST'
 }

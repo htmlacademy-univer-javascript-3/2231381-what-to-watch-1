@@ -22,20 +22,11 @@ function FilmOverview({filmInfo}: {filmInfo: FilmInfo}){
   return (
     <>
       <div className="film-rating">
-        {
-          filmInfo.rating ?
-            <>
-              <div className="film-rating__score">{filmInfo.rating}</div>
-              <p className="film-rating__meta">
-                <span className="film-rating__level">{score}</span>
-                <span className="film-rating__count">{`${filmInfo.scoresCount} ${filmInfo.scoresCount === 1 ? 'rating' : 'ratings'}`}</span>
-              </p>
-            </> :
-            <p className="film-rating__meta">
-              <span className="film-rating__level">Нет информации о рейтинге</span>
-            </p>
-        }
-
+        <div className="film-rating__score">{filmInfo.rating}</div>
+        <p className="film-rating__meta">
+          <span className="film-rating__level">{score}</span>
+          <span className="film-rating__count">{`${filmInfo.scoresCount} ${filmInfo.scoresCount === 1 ? 'rating' : 'ratings'}`}</span>
+        </p>
       </div>
 
       <div className="film-card__text">

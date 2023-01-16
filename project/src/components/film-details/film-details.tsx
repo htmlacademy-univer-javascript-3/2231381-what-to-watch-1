@@ -3,7 +3,7 @@ import React, {useMemo} from 'react';
 
 function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
 
-  const renderStarringActors = (starring: string[]) => starring.slice(0, starring.length - 2).map((actor) => (
+  const renderStarringActors = (starring: string[]) => starring.slice(0, starring.length - 1).map((actor) => (
     <p key={actor} style={{margin: '0'}}>
       {actor},
     </p>
@@ -11,7 +11,7 @@ function FilmDetails({filmInfo}: {filmInfo: FilmInfo}) {
   const starringActors = useMemo(() => renderStarringActors(filmInfo.starring), [filmInfo]);
 
   return (
-    <div className="film-card__text film-card__row">
+    <div className="film-card__text film-card__row" data-testid='Details'>
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Director</strong>

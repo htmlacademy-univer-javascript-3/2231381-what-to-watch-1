@@ -33,9 +33,12 @@ export const makeFakeFilm = (isFavourite?: boolean): FilmInfo => ({
   isFavorite: isFavourite === undefined ? datatype.boolean() : isFavourite,
 });
 
-export const makeFakeFilms = (genres?: string[]): FilmInfo[] => {
+export const makeFakeFilms = (genres?: string[], numberOfFilms?: number): FilmInfo[] => {
   const films = [];
-  for (let i = 0; i < 5; i++) {
+
+  numberOfFilms = numberOfFilms || 5;
+
+  for (let i = 0; i < numberOfFilms; i++) {
     const film = makeFakeFilm();
     if (genres && genres[i]) {
       film.genre = genres[i];
