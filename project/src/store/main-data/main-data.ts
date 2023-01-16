@@ -1,6 +1,6 @@
 import {MainData} from '../../types/state';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {StoreNameSpace} from '../../const';
+import {Namespace} from '../../const';
 import {fetchFilms, fetchPromoFilm} from '../api-action';
 import {FilmInfo} from '../../types/FilmInfo';
 
@@ -13,7 +13,7 @@ const initialState: MainData = {
 };
 
 export const mainData = createSlice({
-  name: StoreNameSpace.Main,
+  name: Namespace.Main,
   initialState,
   reducers: {
     setGenres: (state, action: PayloadAction<FilmInfo[]>) => {

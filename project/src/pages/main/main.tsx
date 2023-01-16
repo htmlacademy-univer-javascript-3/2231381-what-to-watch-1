@@ -26,7 +26,7 @@ function Main(): JSX.Element {
     for (const value of (genres)){
       const className = value === selectedGenre ? 'catalog__genres-item--active' : '';
       links.push(
-        <li className={`catalog__genres-item ${className}`}>
+        <li className={`catalog__genres-item ${className}`} key={value}>
           <button className="catalog__genres-link"
             onClick={() => dispatch(setSelectedGenre(value))}
             style={{background:'transparent', border:'none'}}
@@ -44,7 +44,7 @@ function Main(): JSX.Element {
       {
         promoFilm &&
         <section className="film-card">
-          <FilmCardBackground backgroundImgSrc={promoFilm.backgroundImage} filmName={promoFilm.name}/>
+          <FilmCardBackground backgroundImgSrc={promoFilm.backgroundImage} filmName={promoFilm.name} backgroundColor={promoFilm.backgroundColor}/>
 
           <Header className='film-card__head'/>
 

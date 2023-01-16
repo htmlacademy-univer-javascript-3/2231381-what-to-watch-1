@@ -18,7 +18,11 @@ function SmallFilmCard({film}: {film: FilmInfo}):JSX.Element {
   }
 
   return (
-    <article className="small-film-card catalog__films-card" onPointerEnter={handleMouseOver} onPointerLeave={handleMouseOut}>
+    <article className="small-film-card catalog__films-card"
+      onPointerEnter={handleMouseOver}
+      onPointerLeave={handleMouseOut}
+      data-testid="small-film-card"
+    >
       <Link to={`/films/${film.id}`} className="small-film-card__link">
         <div className="small-film-card__image">
           {

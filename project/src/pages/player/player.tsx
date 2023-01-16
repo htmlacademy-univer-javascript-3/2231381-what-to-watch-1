@@ -61,6 +61,7 @@ function Player(): JSX.Element {
         poster={film.posterImage}
         ref={videoRef}
         onTimeUpdate={updateProgress}
+        data-testid="video-player"
       />
 
       <Link to={`/films/${film.id}`} type="button" className="player__exit">Exit</Link>

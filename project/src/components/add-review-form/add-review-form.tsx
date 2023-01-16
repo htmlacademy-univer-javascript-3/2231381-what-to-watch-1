@@ -26,11 +26,11 @@ function AddReviewForm({filmId}: {filmId: number}) {
   };
 
   return(
-    <div className="add-review">
-      <form className="add-review__form" onSubmit={onSubmit}>
+    <div className="add-review" data-testid="add-review-form">
+      <form className="add-review__form" onSubmit={onSubmit} name="add-review-form">
         {postReviewError && <p style={{textAlign: 'center', color: 'darkred'}}>{postReviewError}</p>}
         <div className="rating">
-          <div className="rating__stars">
+          <div className="rating__stars" data-testid="rating-stars">
             {
               Array.from({length: 10}, (_, i) => i + 1).reverse().map((ratingValue) => (
                 <>
@@ -40,6 +40,7 @@ function AddReviewForm({filmId}: {filmId: number}) {
                     name="rating"
                     value={ratingValue.toString()}
                     onChange={onChange}
+                    key={ratingValue}
                   />
                   <label className="rating__label" htmlFor={`star-${ratingValue.toString()}`}>{`Rating ${ratingValue.toString()}`}</label>
                 </>))
@@ -55,6 +56,7 @@ function AddReviewForm({filmId}: {filmId: number}) {
             onChange={onChange}
             minLength={50}
             maxLength={400}
+            data-testid="review-text"
           >
           </textarea>
           <div className="add-review__submit">
