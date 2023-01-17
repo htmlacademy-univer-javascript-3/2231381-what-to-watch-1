@@ -49,7 +49,7 @@ function Film(): JSX.Element {
 
             <div className="film-card__wrap">
               <FilmCardDescription filmInfo={film}>
-                {authorizationStatus === AuthStatus.Authorized && <Link to={`/films/${film.id}/review`} className="btn film-card__button">Add review</Link>}
+                {authorizationStatus === AuthStatus.Authorized && <Link to={`/films/${film.id}/review`} className="btn film-card__button" data-testid="add-review-link">Add review</Link>}
               </FilmCardDescription>
             </div>
           </div>

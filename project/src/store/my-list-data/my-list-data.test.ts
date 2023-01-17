@@ -3,9 +3,10 @@ import {myListData} from './my-list-data';
 import {changeFilmStatus, fetchMyList, logout} from '../api-action';
 import {makeFakeFilm, makeFakeFilms} from '../../utils/mocks';
 
-const mockFilms = makeFakeFilms();
 
 describe('Reducer: myListData', () => {
+  const mockFilms = makeFakeFilms();
+
   let state: MyListData;
 
   const initialState: MyListData = {

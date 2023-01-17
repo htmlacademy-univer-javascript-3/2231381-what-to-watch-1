@@ -18,10 +18,11 @@ function Tabs(props: TabProps) {
     for (const content of tabsNames){
       const className = content === tab ? 'film-nav__item--active' : '';
       tabs.push(
-        <li className={`film-nav__item ${className}`} key={content} data-testid={content}>
+        <li className={`film-nav__item ${className}`} key={content}>
           <button className="film-nav__link"
             onClick={() => setTab(content)}
             style={{background:'transparent', border:'none'}}
+            data-testid={`${content}-tab`}
           >
             {content}
           </button>

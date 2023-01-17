@@ -6,6 +6,7 @@ import FilmDetails from './film-details';
 
 describe('Component: FilmDetails', () => {
   const mockFilm = makeFakeFilm();
+
   const history = createMemoryHistory();
 
   it('should render correctly', () => {

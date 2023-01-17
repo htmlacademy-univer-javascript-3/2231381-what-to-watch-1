@@ -5,15 +5,15 @@ import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {AppRoute} from '../../const';
 import PrivateRoute from './private-route';
-import HistoryRouter from "../history-router/history-router";
-import {AuthStatus} from "../../types/AuthStatus";
-import {LogInError} from "../../types/LogInError";
-import {makeFakeUser} from "../../utils/mocks";
+import HistoryRouter from '../history-router/history-router';
+import {AuthStatus} from '../../types/AuthStatus';
+import {LogInError} from '../../types/LogInError';
+import {makeFakeUser} from '../../utils/mocks';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 
-describe('Component: PrivateRouter', () => {
+describe('Component: PrivateRoute', () => {
   beforeEach(() => {
     history.push('/private');
   });

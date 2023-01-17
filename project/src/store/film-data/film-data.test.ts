@@ -3,12 +3,12 @@ import {FilmData} from '../../types/state';
 import {fetchFilm, fetchReviews, fetchSimilarFilms, postReview} from '../api-action';
 import {makeFakeFilm, makeFakeReview, makeFakeReviews, makeFakeFilms} from '../../utils/mocks';
 
-const mockFilm = makeFakeFilm();
-const mockSimilarFilms = makeFakeFilms();
-const mockReviews = makeFakeReviews();
-const mockNewReview = makeFakeReview();
-
 describe('Reducer: filmData', () => {
+  const mockFilm = makeFakeFilm();
+  const mockSimilarFilms = makeFakeFilms();
+  const mockReviews = makeFakeReviews();
+  const mockNewReview = makeFakeReview();
+
   let state: FilmData;
 
   const initialState: FilmData = {

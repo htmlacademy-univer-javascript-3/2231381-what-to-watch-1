@@ -11,30 +11,36 @@ import Page404 from '../page-404/page-404';
 import {Route, Routes} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import PrivateRoute from '../../components/private-route/private-route';
+import {User} from '../../types/User';
+import {FilmInfo} from '../../types/FilmInfo';
+import userEvent from '@testing-library/user-event';
+
 
 describe('Component: AddReview', () => {
+  const mockFilm = makeFakeFilm();
+  const mockUser = makeFakeUser();
+
   const mockStore = configureMockStore();
+
+  const makeStore = (authStatus: AuthStatus, user: User | null, film: FilmInfo | null) => mockStore({
+    AUTH: {
+      authorizationStatus: authStatus,
+      user: user,
+      loginError: LogInError.NoError,
+    },
+    FILM: {
+      film: film,
+      similarFilms: [],
+      reviews: [],
+      postReviewError: null,
+      similarFilmsLoaded: false,
+    },
+  });
+
   const history = createMemoryHistory();
 
-
   it('should render correctly when authorized and film not null', () => {
-    const mockFilm = makeFakeFilm();
-    const mockUser = makeFakeUser();
-    const store = mockStore({
-      AUTH: {
-        authorizationStatus: AuthStatus.Authorized,
-        user: mockUser,
-        loginError: LogInError.NoError,
-      },
-      FILM: {
-        film: mockFilm,
-        similarFilms: [],
-        reviews: [],
-        postReviewError: null,
-        similarFilmsLoaded: false,
-      },
-    });
-
+    const store = makeStore(AuthStatus.Authorized, mockUser, mockFilm);
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
@@ -49,21 +55,7 @@ describe('Component: AddReview', () => {
   });
 
   it('should render page 404 when no such film', () => {
-    const mockUser = makeFakeUser();
-    const store = mockStore({
-      AUTH: {
-        authorizationStatus: AuthStatus.Authorized,
-        user: mockUser,
-        loginError: LogInError.NoError ,
-      },
-      FILM: {
-        film: null,
-        similarFilms: [],
-        reviews: [],
-        postReviewError: null,
-        similarFilmsLoaded: false,
-      },
-    });
+    const store = makeStore(AuthStatus.Authorized, mockUser, null);
 
     render(
       <Provider store={store}>
@@ -83,5 +75,19 @@ describe('Component: AddReview', () => {
     );
 
     expect(screen.getByText('404. Такой страницы не существует')).toBeInTheDocument();
+  });
+
+  it('should redirect to film page when click on link', async () => {
+    render(
+      <Provider store={makeStore(AuthStatus.Authorized, mockUser, mockFilm)}>
+        <HistoryRouter history={history}>
+          <AddReview/>
+        </HistoryRouter>
+      </Provider>
+    );
+
+    await userEvent.click(screen.getByTestId('link-to-film'));
+
+    expect(history.location.pathname).toBe(`/films/${mockFilm.id}`);
   });
 });

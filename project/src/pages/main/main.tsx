@@ -30,6 +30,7 @@ function Main(): JSX.Element {
           <button className="catalog__genres-link"
             onClick={() => dispatch(setSelectedGenre(value))}
             style={{background:'transparent', border:'none'}}
+            data-testid={`${value}-genre-button`}
           >
             {value}
           </button>

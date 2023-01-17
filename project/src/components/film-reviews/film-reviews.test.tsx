@@ -7,10 +7,10 @@ import {makeFakeFilm, makeFakeReviews} from '../../utils/mocks';
 import FilmReviews from './film-reviews';
 
 describe('Component: FilmReviews', () => {
-  const mockStore = configureMockStore();
-
   const mockFilm = makeFakeFilm();
   const mockReviews = makeFakeReviews();
+
+  const mockStore = configureMockStore();
   const store = mockStore({
     FILM: {
       film: mockFilm,
@@ -20,6 +20,7 @@ describe('Component: FilmReviews', () => {
       similarFilmsLoaded: false,
     },
   });
+
   const history = createMemoryHistory();
 
   it('should render correctly', () => {
