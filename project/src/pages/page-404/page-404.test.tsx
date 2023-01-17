@@ -16,8 +16,8 @@ describe('Component: Page404', () => {
       loginError: LogInError.NoError,
     },
   });
-  const history = createMemoryHistory();
 
+  const history = createMemoryHistory();
 
   it('should render correctly', () => {
     render(
@@ -29,6 +29,6 @@ describe('Component: Page404', () => {
     );
 
     expect(screen.getByText('404. Такой страницы не существует')).toBeInTheDocument();
-    expect(screen.queryAllByRole('link')).not.toHaveLength(0);
+    expect(screen.queryAllByTestId('logo-link').length).toBe(2);
   });
 });

@@ -9,13 +9,8 @@ import {AuthStatus} from '../../types/AuthStatus';
 import {LogInError} from '../../types/LogInError';
 
 describe('Component: MyList', () => {
-
-  const history = createMemoryHistory();
-
   const mockFilms = makeFakeFilms();
-
   const mockStore = configureMockStore();
-
   const store = mockStore({
     AUTH: {
       authorizationStatus: AuthStatus.Authorized,
@@ -28,6 +23,8 @@ describe('Component: MyList', () => {
       changedFilm: null,
     }
   });
+
+  const history = createMemoryHistory();
 
   it('should render correctly', () => {
     render(

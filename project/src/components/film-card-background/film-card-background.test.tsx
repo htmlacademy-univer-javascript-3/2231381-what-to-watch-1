@@ -5,11 +5,11 @@ import FilmCardBackground from './film-card-background';
 import {makeFakeFilm} from '../../utils/mocks';
 
 describe('Component: FilmCardBackground', () => {
+  const mockFilm = makeFakeFilm();
+
   const history = createMemoryHistory();
 
   it('should render background image when it is defined', () => {
-    const mockFilm = makeFakeFilm();
-
     render(
       <HistoryRouter history={history}>
         <FilmCardBackground backgroundImgSrc={mockFilm.backgroundImage}
@@ -25,8 +25,6 @@ describe('Component: FilmCardBackground', () => {
   });
 
   it('should render background color when background image is undefined', () => {
-    const mockFilm = makeFakeFilm();
-
     render(
       <HistoryRouter history={history}>
         <FilmCardBackground backgroundImgSrc={undefined}

@@ -37,7 +37,7 @@ function UserBlock(){
             </li>
           </>);
       case AuthStatus.NotAuthorized:
-        return <Link to={AppRoute.Login} className="user-block__link">Sign in</Link>;
+        return <Link to={AppRoute.Login} className="user-block__link" data-testid="signin-link">Sign in</Link>;
       case AuthStatus.Unknown:
         return null;
     }

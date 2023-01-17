@@ -41,6 +41,7 @@ function AddReviewForm({filmId}: {filmId: number}) {
                     value={ratingValue.toString()}
                     onChange={onChange}
                     key={ratingValue}
+                    data-testid={`rating-${ratingValue}`}
                   />
                   <label className="rating__label" htmlFor={`star-${ratingValue.toString()}`}>{`Rating ${ratingValue.toString()}`}</label>
                 </>))

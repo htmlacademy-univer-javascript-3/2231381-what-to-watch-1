@@ -14,7 +14,6 @@ describe('Async actions', () => {
   const api = createAPI();
   const mockAPI = new MockAdapter(api);
   const middlewares = [thunk.withExtraArgument(api)];
-
   const mockStore = configureMockStore<
     State,
     Action,

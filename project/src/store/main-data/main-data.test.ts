@@ -3,9 +3,10 @@ import {mainData, setGenres, setSelectedGenre} from './main-data';
 import {makeFakeFilm, makeFakeFilms, makeFakeGenres} from '../../utils/mocks';
 import {fetchFilms, fetchPromoFilm} from '../api-action';
 
-const mockFilms = makeFakeFilms();
 
 describe('Reducer: mainData', () => {
+  const mockFilms = makeFakeFilms();
+
   let state: MainData;
 
   const initialState: MainData = {

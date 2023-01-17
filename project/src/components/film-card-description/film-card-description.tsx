@@ -40,7 +40,7 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
   }, [changedFilm, dispatch, props.filmInfo.id]);
 
   return(
-    <div className="film-card__desc">
+    <div className="film-card__desc" data-testid="film-card-description">
       <h2 className="film-card__title">{props.filmInfo.name}</h2>
       <p className="film-card__meta">
         <span className="film-card__genre">{props.filmInfo.genre}</span>
@@ -55,7 +55,11 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
           <span>Play</span>
         </Link>
 
-        <button className="btn btn--list film-card__button" type="button" onClick={changeStatus}>
+        <button className="btn btn--list film-card__button"
+          type="button"
+          onClick={changeStatus}
+          data-testid="add-to-my-list-button"
+        >
           {
             <>
               {
@@ -68,7 +72,7 @@ function FilmCardDescription(props: FilmCardDescriptionProps){
                   </svg>
               }
               <span>My list</span>
-              <span className="film-card__count">{myListLength}</span>
+              <span className="film-card__count" data-testid='my-list-count'>{myListLength}</span>
             </>
           }
         </button>

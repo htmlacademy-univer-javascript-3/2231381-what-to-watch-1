@@ -6,6 +6,7 @@ import FilmOverview from './film-overview';
 
 describe('Component: FilmOverview', () => {
   const mockFilm = makeFakeFilm();
+
   const history = createMemoryHistory();
 
   it('should render correctly', () => {
